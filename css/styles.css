@@ -1,4 +1,3 @@
-
 :root {
 
     --primary: #57068c;
@@ -352,3 +351,4 @@ input[type=range] {
     background: var(--accent);
     color:white;
 }
+

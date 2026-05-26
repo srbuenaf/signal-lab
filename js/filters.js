@@ -117,3 +117,14 @@ function getHTrans(tau,t){
         ? getHPeriod(t - tau)
         : getHPeriod(tau - t);
 }
+
+function buildKernelBuffer(t){
+
+    for(let x=0;x<=500;x++){
+
+        const tau = x - 250;
+
+        kernelBuffer[x] =
+            getHTrans(tau,t);
+    }
+}

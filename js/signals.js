@@ -1,3 +1,8 @@
+const RUIDO_BUFFER = Array.from(
+    {length:501},
+    () => (Math.random() - 0.5) * 70
+);
+
 function getF(tau){
 
     const f = state.freq;
@@ -53,4 +58,14 @@ function getF(tau){
     }
 
     return 0;
+}
+
+function buildSignalBuffer(){
+
+    for(let x=0;x<=500;x++){
+
+        const tau = x - 250;
+
+        signalBuffer[x] = getF(tau);
+    }
 }

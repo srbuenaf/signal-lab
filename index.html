@@ -1,27 +1,587 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>Signal Lab</title>
+<title>Laboratorio de Procesamiento de Señales (v18.33)</title>
 
-    <link rel="stylesheet" href="css/styles.css">
+<script src="https://polyfill.io"></script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
 
-    <h1>Laboratorio de Señales</h1>
+<div class="container">
 
-    <script src="js/state.js"></script>
-    <script src="js/signals.js"></script>
-    <script src="js/filters.js"></script>
-    <script src="js/convolution.js"></script>
-    <script src="js/render.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/animation.js"></script>
-    <script src="js/main.js"></script>
+    <div class="header">
 
+        <h2>
+            Laboratorio de Procesamiento de Señales (v18.33)
+        </h2>
+    </div>
+
+    <div class="dashboard">
+
+        <!-- LEFT -->
+        <div class="stage-left-modular">
+
+            <!-- f -->
+            <div class="channel-block">
+
+                <div id="latex-f" class="channel-title"></div>
+
+                <div class="mini-svg-container">
+
+                    <svg viewBox="0 0 600 110">
+
+                        <g transform="translate(45,55)">
+
+                            <line
+                              x1="0" y1="0"
+                              x2="500" y2="0"
+                              class="axis"
+                            />
+
+                            <path
+                              id="path-f"
+                              class="sig-f"
+                            />
+
+                            <line
+                              id="guide-1"
+                              x1="0"
+                              y1="-55"
+                              x2="0"
+                              y2="55"
+                              stroke="#e5e5ea"
+                              stroke-dasharray="4"
+                            />
+
+                        </g>
+
+                    </svg>
+
+                </div>
+            </div>
+
+            <!-- h -->
+            <div class="channel-block">
+
+                <div id="latex-h" class="channel-title"></div>
+
+                <div class="mini-svg-container">
+
+                    <svg viewBox="0 0 600 110">
+
+                        <g transform="translate(45,55)">
+
+                            <line
+                              x1="0"
+                              y1="0"
+                              x2="500"
+                              y2="0"
+                              class="axis"
+                            />
+
+                            <path
+                              id="path-h-base"
+                              class="sig-h"
+                              style="opacity:.18;stroke-dasharray:4 3;"
+                            />
+
+                            <path
+                              id="path-h-flip"
+                              class="sig-h"
+                              style="opacity:0;stroke:#ff9800;fill:none;stroke-width:2.5;stroke-dasharray:6 4;"
+                            />
+
+                            <path
+                              id="path-h"
+                              class="sig-h"
+                            />
+
+                            <circle
+                              id="p2"
+                              r="4"
+                              fill="var(--inverse)"
+                            />
+
+                            <line
+                              id="guide-2"
+                              x1="0"
+                              y1="-55"
+                              x2="0"
+                              y2="55"
+                              stroke="#e5e5ea"
+                              stroke-dasharray="4"
+                            />
+
+                        </g>
+
+                    </svg>
+
+                </div>
+            </div>
+
+            <!-- PRODUCT -->
+            <div class="channel-block">
+
+                <div id="latex-prod" class="channel-title"></div>
+
+                <div class="mini-svg-container">
+
+                    <svg viewBox="0 0 600 110">
+
+                        <g transform="translate(45,55)">
+
+                            <rect
+                              id="view-integ-window"
+                              class="integ-window"
+                              x="0"
+                              y="-55"
+                              width="0"
+                              height="110"
+                              style="display:none;"
+                            />
+
+                            <rect
+                              id="active-overlap"
+                              fill="rgba(231,76,60,0.10)"
+                              stroke="rgba(231,76,60,0.35)"
+                              stroke-dasharray="4 3"
+                              style="display:none;"
+                            />
+
+                            <line
+                              x1="0"
+                              y1="0"
+                              x2="500"
+                              y2="0"
+                              class="axis"
+                            />
+
+                            <path
+                              id="path-overlap-fill"
+                              fill="rgba(231,76,60,0.22)"
+                              stroke="none"
+                            />
+
+                            <path
+                              id="path-prod"
+                              class="sig-prod"
+                            />
+
+                            <line
+                              id="guide-3"
+                              x1="0"
+                              y1="-55"
+                              x2="0"
+                              y2="55"
+                              stroke="#e5e5ea"
+                              stroke-dasharray="4"
+                            />
+
+                        </g>
+
+                    </svg>
+
+                </div>
+            </div>
+
+            <!-- RESULT -->
+            <div class="channel-block">
+
+                <div
+                  id="latex-res"
+                  class="channel-title"
+                  style="height:38px;"
+                ></div>
+
+                <div class="mini-svg-container">
+
+                    <svg viewBox="0 0 600 110">
+
+                        <g transform="translate(45,65)">
+
+                            <line
+                              id="line-max"
+                              x1="0"
+                              y1="0"
+                              x2="500"
+                              y2="0"
+                              class="max-line"
+                            />
+
+                            <text
+                              id="text-max"
+                              class="max-text"
+                              x="505"
+                              y="-5"
+                            >
+                                Max: 0.00
+                            </text>
+
+                            <text
+                              id="text-gain"
+                              class="max-text"
+                              x="505"
+                              y="10"
+                            >
+                                Ganancia G: 1.00
+                            </text>
+
+                            <line
+                              x1="0"
+                              y1="0"
+                              x2="500"
+                              y2="0"
+                              class="axis"
+                            />
+
+                            <path
+                              id="path-res-fill"
+                              class="sig-res-fill"
+                            />
+
+                            <path
+                              id="path-res"
+                              class="sig-res"
+                            />
+
+                            <circle
+                              id="p4"
+                              r="5"
+                              fill="var(--inverse)"
+                            />
+
+                            <line
+                              id="guide-4"
+                              x1="0"
+                              y1="-65"
+                              x2="0"
+                              y2="45"
+                              stroke="#e5e5ea"
+                              stroke-dasharray="4"
+                            />
+
+                        </g>
+
+                    </svg>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="stage-right">
+
+            <div
+              id="latex-overlay-title"
+              class="math-label-fixed">
+            </div>
+
+            <svg id="canvas-right" viewBox="0 0 650 660">
+
+                <g transform="translate(70,330)">
+
+                    <line
+                      x1="0"
+                      y1="-220"
+                      x2="500"
+                      y2="-220"
+                      stroke="#f0f0f5"
+                    />
+
+                    <line
+                      x1="0"
+                      y1="220"
+                      x2="500"
+                      y2="220"
+                      stroke="#f0f0f5"
+                    />
+
+                    <line
+                      x1="250"
+                      y1="-240"
+                      x2="250"
+                      y2="240"
+                      stroke="#e5e5ea"
+                      stroke-dasharray="2,2"
+                    />
+
+                    <line
+                      x1="0"
+                      y1="0"
+                      x2="500"
+                      y2="0"
+                      class="axis"
+                    />
+
+                    <path
+                      id="path-overlay-f"
+                      class="sig-f"
+                      style="opacity:.35;stroke-width:2;"
+                    />
+                    
+                    <path id="path-overlay-h"
+                      class="sig-h"
+                      style="
+                       opacity:0.6;
+                       stroke-width:2.5;
+                      " />
+
+
+
+                    <path
+                      id="path-overlay-res"
+                      class="sig-res"
+                      style="stroke-width:3.5;"
+                    />
+
+                    <line
+                      id="overlay-time-line"
+                      x1="0"
+                      y1="-230"
+                      x2="0"
+                      y2="230"
+                      stroke="var(--result)"
+                      stroke-width="1.5"
+                      stroke-dasharray="3,3"
+                    />
+
+                    <circle
+                      id="p-overlay-res"
+                      r="6"
+                      fill="var(--result)"
+                    />
+
+                </g>
+
+            </svg>
+
+        </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+
+        <div class="control-group" id="grp-sf">
+
+            <label>Señal de Entrada f(τ)</label>
+
+            <select id="sf">
+
+                <option value="cos">Coseno</option>
+                <option value="rect">Pulso Rectangular</option>
+                <option value="bipolar">Pulso Bipolar</option>
+                <option value="escalon">Escalón Unitario</option>
+                <option value="sierra">Diente de Sierra</option>
+                <option value="ruido" selected>Ruido Blanco</option>
+
+            </select>
+        </div>
+
+        <div class="control-group" id="grp-freq">
+
+            <label>Frecuencia Entrada</label>
+
+            <div class="slider-box">
+
+                <input
+                  type="range"
+                  id="freq"
+                  min="0.5"
+                  max="3"
+                  step="0.1"
+                  value="1"
+                />
+
+                <span class="val-display" id="v-freq">
+                    1.0
+                </span>
+
+            </div>
+        </div>
+
+        <div class="control-group" id="grp-sh">
+
+            <label>Sistema / Filtro h(τ)</label>
+
+            <select id="sh">
+
+                <option value="delta">Impulso Ideal δ</option>
+                <option value="rect_f">Pulso Rectangular</option>
+                <option value="deriv">Filtro Derivador</option>
+                <option value="per_tri">Triangular</option>
+                <option value="exp" selected>Exponencial</option>
+                <option value="sinc">Filtro Sinc</option>
+
+            </select>
+        </div>
+
+        <div class="control-group" id="grp-width">
+
+            <label id="lbl-width">
+                Ancho del Filtro
+            </label>
+
+            <div class="slider-box">
+
+                <input
+                  type="range"
+                  id="width"
+                  min="10"
+                  max="150"
+                  step="5"
+                  value="40"
+                />
+
+                <span class="val-display" id="v-width">
+                    40
+                </span>
+
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <label>Operador</label>
+
+            <button id="b-mode">
+                CONVOLUCIÓN
+            </button>
+
+        </div>
+
+        <div class="control-group" id="grp-causal">
+
+            <label>Física del Filtro</label>
+
+            <button id="b-causal">
+                NO CAUSAL
+            </button>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Tipo de Integral</label>
+
+            <button id="b-type">
+                LINEAL GLOBAL
+            </button>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Escala Visual</label>
+
+            <button id="b-scale">
+                Escala: AUTO
+            </button>
+
+        </div>
+
+        <div class="control-group">
+
+            <label>Tiempo (Slider t)</label>
+
+            <div class="slider-box">
+
+                <input
+                  type="range"
+                  id="st"
+                  min="0"
+                  max="500"
+                  value="250"
+                />
+
+                <span class="val-display" id="v-t">
+                    0
+                </span>
+
+            </div>
+        </div>
+
+        <div class="control-group">
+
+            <label>Animación</label>
+
+            <button id="b-play">
+                ▶ PLAY
+            </button>
+
+        </div>
+
+<div class="control-group" id="grp-step">
+
+    <label>Modo Didáctico</label>
+
+    <div style="
+        display:flex;
+        gap:8px;
+        align-items:center;
+    ">
+
+        <button id="b-step-mode"
+            style="
+                flex:1;
+                background:#ffffff;
+                border:1px solid #dcdce3;
+                color:#222;
+            ">
+            PASO A PASO
+        </button>
+
+        <button id="b-step-next"
+            style="
+                width:42px;
+                min-width:42px;
+                padding:0;
+                background:#f2f2f7;
+                border:1px solid #dcdce3;
+                font-size:14px;
+            ">
+            ▶
+        </button>
+
+    </div>
+
+</div>
+
+<div class="control-group">
+    <label>Congelar</label>
+
+    <button id="b-freeze">
+        CONGELAR t
+    </button>
+</div>
+
+
+    </div>
+</div>
+<script src="js/state.js"></script>
+<script src="js/signals.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/convolution.js"></script>
+<script src="js/render.js"></script>
+<script src="js/app.js"></script>
 </body>
-
 </html>

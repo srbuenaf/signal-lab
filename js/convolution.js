@@ -1,4 +1,3 @@
-
 function computeResponseCurve(){
 
     let scan = [];
@@ -81,23 +80,68 @@ function computeResponseCurve(){
     };
 }
 
-function buildSignalBuffer(){
+function computeSignalPaths(t){
 
-    for(let x=0;x<=500;x++){
+    buildSignalBuffer();
+    buildKernelBuffer(t);
+
+    let dOverlayH = "M0 0";
+    let dF = "M0 0";
+    let dH = "M0 0";
+    let dHF = "M0 0";
+    let dP = "M0 0";
+    let dOF = "M0 0";
+
+    for(let x=0;x<=500;x+=2){
 
         const tau = x - 250;
 
-        signalBuffer[x] = getF(tau);
+        const vF = signalBuffer[x];
+        const vH = kernelBuffer[x];
+
+        const vHF =
+            state.isConvolution
+                ? getHPeriod(-tau)
+                : getHPeriod(tau);
+
+        const vP =
+            (vF * vH) / 45;
+
+        dF += ` L${x} ${-vF}`;
+        dH += ` L${x} ${-vH}`;
+        dHF += ` L${x} ${-vHF}`;
+        dP += ` L${x} ${-vP}`;
+        dOverlayH += ` L${x} ${-vH * 4.5}`;
+        dOF += ` L${x} ${-(vF*4.5)}`;
     }
+
+    return {
+
+        dF,
+        dH,
+        dHF,
+        dP,
+        dOverlayH,
+        dOF,
+
+        dBase:
+            buildBaseKernelPath()
+    };
 }
 
-function buildKernelBuffer(t){
+function buildBaseKernelPath(){
 
-    for(let x=0;x<=500;x++){
+    let d = "M0 0";
+
+    for(let x=0;x<=500;x+=2){
 
         const tau = x - 250;
 
-        kernelBuffer[x] =
-            getHTrans(tau,t);
+        const v = getHPeriod(tau);
+
+        d += ` L${x} ${-v}`;
     }
+
+    return d;
 }
+
