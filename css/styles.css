@@ -1,0 +1,354 @@
+
+:root {
+
+    --primary: #57068c;
+    --light: #f4eefc;
+
+    --inverse: #009688;
+    --inverse-light: #e0f2f1;
+
+    --white: #ffffff;
+    --dark: #232323;
+
+    --gray: #e5e5ea;
+    --gray-dark: #8e8e93;
+
+    --mix: #9c27b0;
+    --mix-light: rgba(156,39,176,0.15);
+
+    --result: #e74c3c;
+    --result-light: rgba(231,76,60,0.15);
+
+    --accent: #2980b9;
+
+}
+
+body {
+
+    font-family: 'Montserrat', sans-serif;
+    background: #f5f5f7;
+
+    margin: 0;
+    padding: 20px 10px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+
+    width: 100%;
+    max-width: 1250px;
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.header {
+
+    text-align: center;
+}
+
+.header h2 {
+
+    margin: 0;
+
+    color: var(--primary);
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.dashboard {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+}
+
+@media(max-width:900px){
+
+    .dashboard{
+
+        grid-template-columns:1fr;
+    }
+}
+
+.stage-left-modular,
+.stage-right {
+
+    background: #fafafa;
+
+    border: 1px solid #eee;
+
+    border-radius: 12px;
+}
+
+.stage-left-modular {
+
+    padding: 15px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 740px;
+}
+
+.stage-right {
+
+    position: relative;
+    overflow: hidden;
+
+    height: 740px;
+}
+
+.channel-block {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.channel-title {
+
+    font-size: 0.82rem;
+    font-weight: 600;
+
+    color: var(--dark);
+
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 45px;
+}
+
+.mini-svg-container {
+
+    width: 100%;
+    height: 110px;
+}
+
+svg {
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    overflow: visible;
+}
+
+.axis {
+
+    stroke: var(--dark);
+    stroke-width: 1.5;
+}
+
+.sig-f {
+
+    stroke: var(--primary);
+    fill: var(--light);
+
+    stroke-width: 2.5;
+}
+
+.sig-h {
+
+    stroke: var(--inverse);
+    fill: var(--inverse-light);
+
+    stroke-width: 2.5;
+}
+
+.sig-prod {
+
+    stroke: var(--mix);
+    fill: var(--mix-light);
+
+    stroke-width: 1.5;
+}
+
+.sig-res {
+
+    stroke: var(--result);
+
+    fill: none;
+
+    stroke-width: 3;
+
+    stroke-linejoin: round;
+}
+
+.sig-res-fill {
+
+    fill: var(--result-light);
+}
+
+.max-line {
+
+    stroke: var(--gray-dark);
+
+    stroke-dasharray: 4,4;
+
+    stroke-width: 1.2;
+}
+
+.integ-window {
+
+    fill: rgba(41,128,185,0.08);
+
+    stroke: var(--accent);
+
+    stroke-dasharray: 3,3;
+
+    stroke-width: 1.2;
+}
+
+.max-text {
+
+    font-family: 'Montserrat';
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    fill: var(--dark);
+}
+
+.math-label-fixed {
+
+    padding-left: 40px;
+
+    padding-top: 20px;
+
+    font-size: 1.05em;
+
+    color: var(--dark);
+
+    font-weight: 600;
+}
+
+.controls{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:14px;
+
+    background:#fff;
+    padding:20px;
+    border-radius:12px;
+    border:1px solid #eee;
+
+    align-items:end;
+}
+
+.control-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+
+    font-size:11px;
+    font-weight:700;
+    color:var(--gray-dark);
+
+    transition:opacity .2s ease;
+}
+
+.control-group.disabled{
+    opacity:.3;
+    pointer-events:none;
+}
+
+button,
+select {
+
+    border: none;
+
+    padding: 8px 10px;
+
+    border-radius: 8px;
+
+    font-family: 'Montserrat';
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    height: 38px;
+
+    background: #f2f2f7;
+
+    border: 1px solid var(--gray);
+
+    transition: all .2s;
+}
+
+input[type=range] {
+
+    width: 100%;
+    height: 6px;
+
+    background: #ddd;
+
+    border-radius: 5px;
+
+    outline: none;
+}
+
+.slider-box {
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    background: #f8f8fa;
+
+    padding: 5px 12px;
+
+    border-radius: 8px;
+
+    border: 1px solid #eee;
+
+    height: 38px;
+}
+
+.val-display {
+
+    color: var(--primary);
+
+    min-width: 35px;
+
+    text-align: center;
+
+    font-size: 12px;
+}
+
+#b-mode{
+
+    background: var(--dark);
+    color: white;
+}
+
+#b-type{
+
+    background: var(--accent);
+    color:white;
+}
