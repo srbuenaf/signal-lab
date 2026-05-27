@@ -30,39 +30,30 @@
 <div class="container">
 
     <div class="header">
-
         <h2>
             Laboratorio de Procesamiento de Señales (v18.33)
         </h2>
     </div>
 
     <div class="dashboard">
-
         <!-- LEFT -->
         <div class="stage-left-modular">
 
             <!-- f -->
             <div class="channel-block">
-
                 <div id="latex-f" class="channel-title"></div>
-
                 <div class="mini-svg-container">
-
                     <svg viewBox="0 0 600 110">
-
                         <g transform="translate(45,55)">
-
                             <line
                               x1="0" y1="0"
                               x2="500" y2="0"
                               class="axis"
                             />
-
                             <path
                               id="path-f"
                               class="sig-f"
                             />
-
                             <line
                               id="guide-1"
                               x1="0"
@@ -72,25 +63,17 @@
                               stroke="#e5e5ea"
                               stroke-dasharray="4"
                             />
-
                         </g>
-
                     </svg>
-
                 </div>
             </div>
 
             <!-- h -->
             <div class="channel-block">
-
                 <div id="latex-h" class="channel-title"></div>
-
                 <div class="mini-svg-container">
-
                     <svg viewBox="0 0 600 110">
-
                         <g transform="translate(45,55)">
-
                             <line
                               x1="0"
                               y1="0"
@@ -98,30 +81,25 @@
                               y2="0"
                               class="axis"
                             />
-
                             <path
                               id="path-h-base"
                               class="sig-h"
                               style="opacity:.18;stroke-dasharray:4 3;"
                             />
-
                             <path
                               id="path-h-flip"
                               class="sig-h"
                               style="opacity:0;stroke:#ff9800;fill:none;stroke-width:2.5;stroke-dasharray:6 4;"
                             />
-
                             <path
                               id="path-h"
                               class="sig-h"
                             />
-
                             <circle
                               id="p2"
                               r="4"
                               fill="var(--inverse)"
                             />
-
                             <line
                               id="guide-2"
                               x1="0"
@@ -131,25 +109,17 @@
                               stroke="#e5e5ea"
                               stroke-dasharray="4"
                             />
-
                         </g>
-
                     </svg>
-
                 </div>
             </div>
 
             <!-- PRODUCT -->
             <div class="channel-block">
-
                 <div id="latex-prod" class="channel-title"></div>
-
                 <div class="mini-svg-container">
-
                     <svg viewBox="0 0 600 110">
-
                         <g transform="translate(45,55)">
-
                             <rect
                               id="view-integ-window"
                               class="integ-window"
@@ -159,7 +129,6 @@
                               height="110"
                               style="display:none;"
                             />
-
                             <rect
                               id="active-overlap"
                               fill="rgba(231,76,60,0.10)"
@@ -167,7 +136,6 @@
                               stroke-dasharray="4 3"
                               style="display:none;"
                             />
-
                             <line
                               x1="0"
                               y1="0"
@@ -175,18 +143,15 @@
                               y2="0"
                               class="axis"
                             />
-
                             <path
                               id="path-overlap-fill"
                               fill="rgba(231,76,60,0.22)"
                               stroke="none"
                             />
-
                             <path
                               id="path-prod"
                               class="sig-prod"
                             />
-
                             <line
                               id="guide-3"
                               x1="0"
@@ -196,11 +161,8 @@
                               stroke="#e5e5ea"
                               stroke-dasharray="4"
                             />
-
                         </g>
-
                     </svg>
-
                 </div>
             </div>
 
@@ -374,209 +336,197 @@
                 </g>
 
             </svg>
+            <div id="didactic-panel" class="didactic-panel">
 
+            <div id="didactic-title" class="didactic-title">
+                Introducción
+            </div>
+
+            <div id="didactic-text" class="didactic-text">
+                 Selecciona el modo paso a paso para comenzar.
+        </div>
+
+</div>
         </div>
     </div>
 
     <!-- CONTROLS -->
-    <div class="controls">
+   <div class="controls"> 
+ 
+    <!-- [Señales y Sistema] -->      
+        <div class="control-section">
+            <div class="control-section-title">
+                Señales y Sistema
+            </div>
+          <div class="control-section-content">
+            <div class="control-group" id="grp-sf">
+                <label>Señal de Entrada f(τ)</label>
+                <select id="sf">
+                    <option value="cos">Coseno</option>
+                    <option value="rect">Pulso Rectangular</option>
+                    <option value="bipolar">Pulso Bipolar</option>
+                    <option value="escalon">Escalón Unitario</option>
+                    <option value="sierra">Diente de Sierra</option>
+                    <option value="ruido" selected>Ruido Blanco</option>
+                </select>
+            </div>
 
-        <div class="control-group" id="grp-sf">
+            <div class="control-group" id="grp-freq">
+                <label>Frecuencia Entrada</label>
+                <div class="slider-box">
+                    <input
+                        type="range"
+                        id="freq"
+                        min="0.5"
+                        max="3"
+                        step="0.1"
+                        value="1"
+                    />
+                    <span class="val-display" id="v-freq">
+                            1.0
+                    </span>
+                </div>
+            </div>
 
-            <label>Señal de Entrada f(τ)</label>
+            <div class="control-group" id="grp-sh">
+                <label>Sistema / Filtro h(τ)</label>
+                <select id="sh">
+                    <option value="delta">Impulso Ideal δ</option>
+                    <option value="rect_f">Pulso Rectangular</option>
+                    <option value="deriv">Filtro Derivador</option>
+                    <option value="per_tri">Triangular</option>
+                    <option value="exp" selected>Exponencial</option>
+                    <option value="sinc">Filtro Sinc</option>
+                </select>
+            </div>
 
-            <select id="sf">
+            <div class="control-group" id="grp-width">
+                <label id="lbl-width">
+                    Ancho del Filtro
+                </label>
+                <div class="slider-box">
+                    <input
+                        type="range"
+                        id="width"
+                        min="10"
+                        max="150"
+                        step="5"
+                        value="40"
+                    />
+                    <span class="val-display" id="v-width">
+                        40
+                    </span>
+                </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- [Operador] -->
+        <div class="control-section">
+            <div class="control-section-title">
+                Operador
+            </div>
+         <div class="control-section-content">
+            <div class="control-group">
+                <label>Operador</label>
+                <button id="b-mode">
+                    CONVOLUCIÓN
+                </button>
+            </div>
 
-                <option value="cos">Coseno</option>
-                <option value="rect">Pulso Rectangular</option>
-                <option value="bipolar">Pulso Bipolar</option>
-                <option value="escalon">Escalón Unitario</option>
-                <option value="sierra">Diente de Sierra</option>
-                <option value="ruido" selected>Ruido Blanco</option>
+            <div class="control-group" id="grp-causal">
+                <label>Física del Filtro</label>
+                <button id="b-causal">
+                    NO CAUSAL
+                </button>
+            </div>
 
-            </select>
+            <div class="control-group">
+                <label>Tipo de Integral</label>
+                <button id="b-type">
+                    LINEAL GLOBAL
+                </button>
+            </div>
+
+            <div class="control-group">
+                <label>Escala Visual</label>
+                <button id="b-scale">
+                    Escala: AUTO
+                </button>
+            </div>
+         </div>
         </div>
 
-        <div class="control-group" id="grp-freq">
+        <!-- [Exploración] -->
+        <div class="control-section">
+        <div class="control-section-title">
+            Exploración
+        </div>
+        <div class="control-section-content">
+            <div class="control-group">                   <label>Tiempo (Slider t)</label>
+                <div class="slider-box">
+                    <input
+                        type="range"
+                        id="st"
+                        min="0"
+                        max="500"
+                        value="250"
+                    />
+                    <span class="val-display" id="v-t">
+                        0
+                    </span>
+                </div>
+            </div>
 
-            <label>Frecuencia Entrada</label>
+            <div class="control-group">
+                <label>Animación</label>
+                <button id="b-play">
+                   ▶ PLAY
+                </button>
+            </div>
 
-            <div class="slider-box">
+            <div class="control-group" id="grp-step">
+                <label>Modo Didáctico</label>
+                <div style="
+                    display:flex;
+                    gap:8px;
+                    align-items:center;
+                    ">
+                    <button id="b-step-mode"
+                    style="
+                        flex:1;
+                        background:#ffffff;
+                        border:1px solid #dcdce3;
+                        color:#222;
+                    ">
+                           PASO A PASO
+                    </button>
+                    <button id="b-step-next"
+                    style="
+                        width:42px;
+                        min-width:42px;
+                        padding:0;
+                        background:#f2f2f7;
+                        border:1px solid #dcdce3;
+                        font-size:14px;
+                    ">
+                        ▶
+                    </button>
 
-                <input
-                  type="range"
-                  id="freq"
-                  min="0.5"
-                  max="3"
-                  step="0.1"
-                  value="1"
-                />
-
-                <span class="val-display" id="v-freq">
-                    1.0
-                </span>
+                </div>
 
             </div>
-        </div>
 
-        <div class="control-group" id="grp-sh">
-
-            <label>Sistema / Filtro h(τ)</label>
-
-            <select id="sh">
-
-                <option value="delta">Impulso Ideal δ</option>
-                <option value="rect_f">Pulso Rectangular</option>
-                <option value="deriv">Filtro Derivador</option>
-                <option value="per_tri">Triangular</option>
-                <option value="exp" selected>Exponencial</option>
-                <option value="sinc">Filtro Sinc</option>
-
-            </select>
-        </div>
-
-        <div class="control-group" id="grp-width">
-
-            <label id="lbl-width">
-                Ancho del Filtro
-            </label>
-
-            <div class="slider-box">
-
-                <input
-                  type="range"
-                  id="width"
-                  min="10"
-                  max="150"
-                  step="5"
-                  value="40"
-                />
-
-                <span class="val-display" id="v-width">
-                    40
-                </span>
-
-            </div>
-        </div>
-
-        <div class="control-group">
-
-            <label>Operador</label>
-
-            <button id="b-mode">
-                CONVOLUCIÓN
-            </button>
-
-        </div>
-
-        <div class="control-group" id="grp-causal">
-
-            <label>Física del Filtro</label>
-
-            <button id="b-causal">
-                NO CAUSAL
-            </button>
-
-        </div>
-
-        <div class="control-group">
-
-            <label>Tipo de Integral</label>
-
-            <button id="b-type">
-                LINEAL GLOBAL
-            </button>
-
-        </div>
-
-        <div class="control-group">
-
-            <label>Escala Visual</label>
-
-            <button id="b-scale">
-                Escala: AUTO
-            </button>
-
-        </div>
-
-        <div class="control-group">
-
-            <label>Tiempo (Slider t)</label>
-
-            <div class="slider-box">
-
-                <input
-                  type="range"
-                  id="st"
-                  min="0"
-                  max="500"
-                  value="250"
-                />
-
-                <span class="val-display" id="v-t">
-                    0
-                </span>
-
-            </div>
-        </div>
-
-        <div class="control-group">
-
-            <label>Animación</label>
-
-            <button id="b-play">
-                ▶ PLAY
-            </button>
-
-        </div>
-
-<div class="control-group" id="grp-step">
-
-    <label>Modo Didáctico</label>
-
-    <div style="
-        display:flex;
-        gap:8px;
-        align-items:center;
-    ">
-
-        <button id="b-step-mode"
-            style="
-                flex:1;
-                background:#ffffff;
-                border:1px solid #dcdce3;
-                color:#222;
-            ">
-            PASO A PASO
-        </button>
-
-        <button id="b-step-next"
-            style="
-                width:42px;
-                min-width:42px;
-                padding:0;
-                background:#f2f2f7;
-                border:1px solid #dcdce3;
-                font-size:14px;
-            ">
-            ▶
-        </button>
-
-    </div>
-
-</div>
-
-<div class="control-group">
-    <label>Congelar</label>
-
-    <button id="b-freeze">
+            <div class="control-group">
+                <label>Congelar</label>
+                <button id="b-freeze">
         CONGELAR t
-    </button>
-</div>
-
-
+                </button>
+            </div>
+         </div>
+        </div>
     </div>
-</div>
+
 <script src="js/state.js"></script>
 <script src="js/signals.js"></script>
 <script src="js/filters.js"></script>

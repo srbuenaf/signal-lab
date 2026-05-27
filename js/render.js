@@ -310,13 +310,18 @@ const integWindow =
 
         overlap.style.opacity = 1;
 
+        document.getElementById('didactic-panel')
+            .style.display = 'none';
+
         return;
     }
 
     /* =========================
        PASOS
     ========================= */
-
+    document.getElementById('didactic-panel')
+        .style.display = 'block';
+        
     switch(currentStep){
 
         /* PASO 1 */
@@ -326,7 +331,13 @@ const integWindow =
                 "Paso 1: Kernel original h(τ)";
 
             base.style.opacity = 1;
+            document.getElementById('didactic-title')
+                .textContent =
+                    "Paso 1 · Sistema original";
 
+            document.getElementById('didactic-text')
+                .textContent =
+                    "Observamos la respuesta impulsional original del sistema h(τ). Esta función describe cómo responde físicamente el sistema ante una excitación.";
             break;
 
         /* PASO 2 */
@@ -340,7 +351,13 @@ const integWindow =
             base.style.opacity = 0.15;
 
             flip.style.opacity = 1;
+            document.getElementById('didactic-title')
+                .textContent =
+                    "Paso 2 · Inversión temporal";
 
+            document.getElementById('didactic-text')
+               .textContent =
+                   "En convolución invertimos temporalmente el sistema. El operador h(t-τ) implica una reflexión respecto al eje temporal.";
             break;
 
         /* PASO 3 */
@@ -353,7 +370,13 @@ const integWindow =
 
             moved.style.opacity = 1;
             overlap.style.display = 'block';
+            document.getElementById('didactic-title')
+                .textContent =
+                     "Paso 3 · Desplazamiento temporal";
 
+            document.getElementById('didactic-text')
+                .textContent =
+                    "Ahora desplazamos el sistema a lo largo del tiempo. El parámetro t controla cuánto se mueve el kernel respecto a la señal.";
             break;
 
         /* PASO 4 */
@@ -368,22 +391,28 @@ const integWindow =
 
             overlap.style.opacity = 1;
             overlap.style.display = 'block';
+            document.getElementById('didactic-title')
+                .textContent =
+                    "Paso 4 · Producto local";
 
+            document.getElementById('didactic-text')
+                .textContent =
+                    "Multiplicamos punto a punto ambas señales. El solape positivo aumenta la salida; el solape negativo puede cancelarla.";
             break;
 
         /* PASO 5 */
         case 4:
-integWindow.style.display = 'block';
+            integWindow.style.display = 'block';
 
-integWindow.setAttribute(
-    'x',
-    0
-);
+            integWindow.setAttribute(
+               'x',
+                0
+                    );
 
-integWindow.setAttribute(
-    'width',
-    500
-);
+            integWindow.setAttribute(
+              'width',
+                 500
+                );
             title.textContent =
                 "Paso 5: Integración → salida";
 
@@ -392,7 +421,13 @@ integWindow.setAttribute(
             prod.style.opacity = 1;
 
             overlap.style.opacity = 1;
+            document.getElementById('didactic-title')
+                .textContent =
+                    "Paso 5 · Integración";
 
+            document.getElementById('didactic-text')
+                .textContent =
+                    "La integral acumula toda la interacción entre señal y sistema. El valor obtenido genera un único punto de la salida y(t).";
             break;
     }
 }
