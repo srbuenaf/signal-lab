@@ -207,6 +207,11 @@ function update(forceMath=false){
     document.getElementById('time-big')
         .textContent = `t = ${state.t}`;
 
+    document.getElementById('shift-display')
+        .textContent =
+        `Desplazamiento: t = ${state.t}`;
+        
+
     document.getElementById('v-freq')
         .textContent = state.freq;
 
@@ -253,8 +258,10 @@ function animate() {
 
     current += 1;
 
+
     if (current > 500)
         current = 0;
+
 
     slider.value = current;
 
@@ -347,7 +354,7 @@ function nextStep(){
 
     currentStep++;
 
-    if(currentStep > 4)
+    if(currentStep > 5)
         currentStep = 0;
 
     update(true);
@@ -394,12 +401,26 @@ window.onload = () => {
 
     document.getElementById('b-step-next')
         .onclick = nextStep;
-    document.getElementById(
-        'b-freeze'
-     ).onclick = () => {
 
-    freezeIntegral =
-        !freezeIntegral;
-     };
+    document.getElementById('b-freeze')
+        .onclick = () => {
+        freezeIntegral = !freezeIntegral;
+        const b =
+            document.getElementById(
+            'b-freeze'
+            );
+
+        if(freezeIntegral){
+            b.textContent = "t CONGELADO";
+            b.style.background =
+                "#e74c3c";
+            b.style.color = "white";
+        }else{
+            b.textContent =
+                "CONGELAR t";
+            b.style.background = "";
+            b.style.color = "";
+        }
+};
     update(true);
 };

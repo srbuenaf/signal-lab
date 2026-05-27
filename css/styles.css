@@ -178,7 +178,6 @@ body {
     }
 }
 
-.stage-left-modular,
 .stage-right {
 
     background: #fafafa;
@@ -186,6 +185,8 @@ body {
     border: 1px solid #eee;
 
     border-radius: 12px;
+
+    position:relative;
 }
 
 .stage-left-modular {
@@ -197,6 +198,9 @@ body {
     justify-content: space-between;
 
     height: 740px;
+
+    position:relative;
+
 }
 
 .stage-right {
@@ -325,8 +329,7 @@ svg {
 
 .math-label-fixed {
 
-    position:absolute;
-
+ 
     top:18px;
     left:20px;
 
@@ -353,7 +356,7 @@ svg {
     transition:
         all .25s ease;
 
-    z-index:10;
+    pointer-events:none;
 
     max-width:320px;
 }
@@ -577,6 +580,7 @@ input[type=range] {
     backdrop-filter: blur(6px);
 
     z-index:10;
+
 }
 
 .didactic-title{
@@ -659,3 +663,216 @@ input[type=range] {
     background:var(--result);
 }
 
+/* =========================================================
+   OVERLAYS CONTEXTUALES
+========================================================= */
+.shift-display{
+
+    position:absolute;
+
+    top:82px;
+    left:20px;
+
+    padding:8px 14px;
+
+    background:rgba(255,255,255,0.88);
+
+    border-radius:10px;
+
+    border:1px solid rgba(0,0,0,0.05);
+
+    font-size:13px;
+    font-weight:600;
+
+    color:var(--accent);
+
+    backdrop-filter:blur(4px);
+
+    box-shadow:
+        0 4px 14px rgba(0,0,0,0.05);
+
+    transition:
+        all .2s ease;
+
+    z-index:10;
+}
+
+/* =========================================================
+   RESULT FOCUS
+========================================================= */
+
+/* =========================================================
+   RESULT FOCUS
+========================================================= */
+
+.result-focus{
+
+    opacity:0.18;
+
+    transition:opacity .25s ease;
+}
+
+.result-point-focus{
+
+    filter:
+        drop-shadow(
+            0 0 4px rgba(0,255,120,0.45)
+        );
+
+    animation:
+        softPulse 1.8s infinite;
+}
+
+@keyframes softPulse{
+
+    0%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.55;
+    }
+
+    100%{
+        opacity:1;
+    }
+}
+
+/* =========================================================
+   OVERLAP FADE
+========================================================= */
+
+.overlap-fade{
+
+    opacity:0 !important;
+
+    transition:
+        opacity .45s ease;
+}
+
+.window-fade{
+
+    opacity:0;
+
+    transition:
+        opacity .45s ease;/* =========================================================
+   STEP HIGHLIGHTS
+========================================================= */
+
+.focus-box{
+
+    position:absolute;
+
+    border:1px solid rgba(124,58,237,.35);
+
+    border-radius:14px;
+
+    background:
+       rgba(124,58,237,.025);
+
+    box-shadow:
+        0 0 12px
+        rgba(124,58,237,.10);
+
+    opacity:0;
+
+    transition:
+        opacity .35s ease;
+
+    pointer-events:none;
+}
+
+/* h(t−τ) */
+
+#focus-h{
+
+    left:20px;
+    top:120px;
+
+    width:360px;
+    height:120px;
+}
+
+/* producto */
+
+#focus-prod{
+
+    left:20px;
+    top:330px;
+
+    width:360px;
+    height:120px;
+}
+
+/* convolución */
+
+#focus-res{
+
+    left:20px;
+    top:470px;
+
+    width:360px;
+    height:120px;
+}
+}
+
+
+/* =========================================================
+   STEP HIGHLIGHTS
+========================================================= */
+
+.focus-box{
+
+    position:absolute;
+
+    border:2px solid #7c3aed;
+
+    border-radius:14px;
+
+    background:
+        rgba(124,58,237,.05);
+
+    box-shadow:
+        0 0 18px
+        rgba(124,58,237,.18);
+
+    opacity:0;
+
+    transition:
+        opacity .35s ease;
+
+    pointer-events:none;
+}
+
+/* h(t−τ) */
+
+#focus-h{
+
+    left:185px;
+    top:340px;
+
+    width:490px;
+    height:140px;
+}
+
+/* producto */
+
+#focus-prod{
+
+    left:185px;
+    top:540px;
+
+    width:490px;
+    height:150px;
+}
+
+/* convolución */
+
+#focus-res{
+
+    left:185px;
+    top:740px;
+
+    width:490px;
+    height:150px;
+}

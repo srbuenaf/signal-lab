@@ -62,6 +62,13 @@ function renderResponse(scanData){
 
     scan.forEach((p,i)=>{
 
+      if(
+        stepMode &&
+        p.t > state.t
+        ){
+        return;
+    }
+
         const py =
             p.val * mSVG;
 
@@ -246,6 +253,7 @@ function renderButtons(){
 
 function renderStepMode(){
 
+
     const title =
         document.getElementById(
             'latex-overlay-title'
@@ -276,9 +284,44 @@ function renderStepMode(){
             'path-overlap-fill'
         );
 
+    const resCurve =
+        document.getElementById(
+            'path-res'
+        );
+
+    const resFill =
+        document.getElementById(
+            'path-res-fill'
+        );
+
+    const resPoint =
+        document.getElementById(
+            'p4'
+        );
+
     const overlapBox =
     document.getElementById(
         'active-overlap'
+    );
+
+    const floatingLabel =
+        document.getElementById(
+            'latex-overlay-title'
+    );
+
+    const focusH =
+        document.getElementById(
+            'focus-h'
+    );
+
+    const focusProd =
+        document.getElementById(
+            'focus-prod'
+    );
+
+    const focusRes =
+        document.getElementById(
+            'focus-res'
     );
 
     /* =========================
@@ -367,6 +410,20 @@ let overlapEnd = -999;
         document.getElementById('didactic-panel')
             .style.display = 'none';
 
+        resCurve.classList.remove(
+            'result-focus'
+        );
+
+        resFill.classList.remove(
+            'result-focus'
+        );
+
+        resPoint.classList.remove(
+            'result-point-focus'
+        );
+
+   
+
         return;
     }
 
@@ -376,10 +433,34 @@ let overlapEnd = -999;
     document.getElementById('didactic-panel')
         .style.display = 'block';
         
-    switch(currentStep){
+    
+    resCurve.classList.add(
+        'result-focus'
+    );
+
+    resFill.classList.add(
+        'result-focus'
+    );
+
+    resPoint.style.opacity = 0;
+
+    resPoint.classList.remove(
+        'result-point-focus'
+    );
+    
+
+    focusH.style.opacity = 0;
+
+    focusProd.style.opacity = 0;
+
+    focusRes.style.opacity = 0;    
+
+        switch(currentStep){
 
         /* PASO 1 */
         case 0:
+
+            focusH.style.opacity = 1;   
 
             title.textContent =
                 "Paso 1: Kernel original h(τ)";
@@ -398,8 +479,9 @@ let overlapEnd = -999;
         /* PASO 2 */
         case 1:
 
-        title.textContent =
-           state.isConvolution
+            focusH.style.opacity = 1;   
+            title.textContent =
+                state.isConvolution
               ? "Paso 2: Inversión temporal h(-τ)"
               : "Paso 2: Correlación: no se invierte";
               title.style.borderLeftColor = "#2980b9";
@@ -419,6 +501,7 @@ let overlapEnd = -999;
         /* PASO 3 */
         case 2:
 
+            focusH.style.opacity = 1;   
             title.textContent =
                 "Paso 3: Desplazamiento h(t-τ)";
                 title.style.borderLeftColor = "#2980b9";
@@ -439,6 +522,7 @@ let overlapEnd = -999;
         /* PASO 4 */
         case 3:
 
+            focusProd.style.opacity = 1;
             title.textContent =
                 "Paso 4: Producto punto a punto";
                 title.style.borderLeftColor = "#9c27b0";
@@ -460,6 +544,8 @@ let overlapEnd = -999;
 
         /* PASO 5 */
         case 4:
+
+            focusProd.style.opacity = 1;
             integWindow.style.display = 'block';
 
             integWindow.setAttribute(
@@ -472,10 +558,13 @@ let overlapEnd = -999;
                  500
                 );
             title.textContent =
-                "Paso 5: Integración → salida";
+                "Paso 5: La integral se está calculando ...";
                 title.style.borderLeftColor = "#e74c3c";
 
             moved.style.opacity = 0.25;
+
+            prod.style.transition =
+                'opacity .45s ease';
 
             prod.style.opacity = 1;
 
@@ -487,7 +576,91 @@ let overlapEnd = -999;
             document.getElementById('didactic-text')
                 .textContent =
                     "La integral acumula toda la interacción entre señal y sistema. El valor obtenido genera un único punto de la salida y(t).";
-            break;
+            
+            resCurve.classList.add(
+                'result-focus'
+            );
+
+            resFill.classList.add(
+                'result-focus'
+            );
+
+            overlap.style.transition =
+                'opacity .45s ease';
+
+
+            overlap.classList.remove(
+                'overlap-fade'
+            );
+            
+            overlap.style.opacity = 1;
+            
+            resPoint.style.opacity = 0;
+            
+            resPoint.classList.remove(
+                'result-point-focus'
+            );
+            
+            integWindow.classList.remove(
+                'window-fade'
+            );
+
+            integWindow.style.opacity = 1;
+
+             break;
+
+        /* PASO 6 */
+        case 5:
+
+            focusRes.style.opacity = 1;
+            integWindow.style.display = 'block';
+
+            integWindow.style.opacity = 0;
+
+            moved.style.opacity = 0.12;
+
+            prod.style.transition =
+            'opacity .45s ease';
+
+            prod.style.opacity = 0.08;
+
+            overlap.style.transition =
+                'opacity .45s ease';
+
+            overlap.classList.add(
+                'overlap-fade'
+            );
+
+            title.textContent =
+                "Paso 6: Asignación a y(t)";
+
+            title.style.borderLeftColor =
+                "#2ecc71";
+
+            document.getElementById(
+                'didactic-title'
+            ).textContent =
+                "Paso 6 · Construcción de la salida";
+
+            document.getElementById(
+                'didactic-text'
+            ).textContent =
+                "El valor de la integral se convierte en un punto de la convolución y(t).";
+
+            resPoint.style.transition =
+                'opacity .45s ease';
+            
+                resPoint.style.opacity = 1;
+
+            resPoint.classList.add(
+                'result-point-focus'
+            );
+
+            integWindow.classList.add(
+                'window-fade'
+            );
+
+        break;
     }
 }
 
