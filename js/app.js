@@ -204,6 +204,9 @@ function update(forceMath=false){
     document.getElementById('v-t')
         .textContent = state.t;
 
+    document.getElementById('time-big')
+        .textContent = `t = ${state.t}`;
+
     document.getElementById('v-freq')
         .textContent = state.freq;
 

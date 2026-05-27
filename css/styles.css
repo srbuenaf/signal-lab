@@ -55,9 +55,93 @@ body {
     gap: 20px;
 }
 
-.header {
+.header{
 
-    text-align: center;
+    display:flex;
+    flex-direction:column;
+
+    gap:8px;
+
+    margin-bottom:10px;
+}
+
+.header-top{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:14px;
+}
+
+.header h1{
+
+    margin:0;
+
+    color:var(--primary);
+
+    font-size:30px;
+    font-weight:700;
+
+    letter-spacing:-0.02em;
+}
+
+.time-header{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:6px;
+
+    margin-bottom:4px;
+}
+
+.time-title{
+
+    font-size:11px;
+    font-weight:700;
+
+    color:var(--gray-dark);
+
+    text-transform:uppercase;
+
+    letter-spacing:.05em;
+}
+
+.time-big{
+
+    font-size:28px;
+    font-weight:700;
+
+    color:var(--result);
+
+    letter-spacing:-0.03em;
+}
+
+.version-badge{
+
+    background:var(--primary);
+    color:white;
+
+    padding:4px 10px;
+
+    border-radius:999px;
+
+    font-size:11px;
+    font-weight:700;
+}
+
+.header-subtitle{
+
+    margin:0;
+
+    text-align:center;
+
+    color:var(--gray-dark);
+
+    font-size:14px;
+
+    font-weight:500;
 }
 
 .header h2 {

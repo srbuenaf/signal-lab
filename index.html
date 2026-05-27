@@ -29,11 +29,25 @@
 
 <div class="container">
 
-    <div class="header">
-        <h2>
-            Laboratorio de Procesamiento de Señales (v18.33)
-        </h2>
+<div class="header">
+
+    <div class="header-top">
+
+        <h1>
+            Signal Lab
+        </h1>
+
+        <div class="version-badge">
+            v18.33
+        </div>
+
     </div>
+
+    <p class="header-subtitle">
+        Laboratorio interactivo de convolución y correlación
+    </p>
+
+</div>
 
     <div class="dashboard">
         <!-- LEFT -->
@@ -429,7 +443,10 @@
          <div class="control-section-content">
             <div class="control-group">
                 <label>Operador</label>
-                <button id="b-mode">
+                <button 
+                    id="b-mode"
+                    title="Invierte, desplaza y acumula el solape entre señales"
+                    >
                     CONVOLUCIÓN
                 </button>
             </div>
@@ -443,7 +460,10 @@
 
             <div class="control-group">
                 <label>Tipo de Integral</label>
-                <button id="b-type">
+                <button 
+                    id="b-type"
+                    title="Alterna entre convolución lineal y periódica"
+                >
                     LINEAL GLOBAL
                 </button>
             </div>
@@ -464,6 +484,16 @@
         </div>
         <div class="control-section-content">
             <div class="control-group">                   <label>Tiempo (Slider t)</label>
+                
+            <div class="time-header">
+                <span class="time-title">
+                    Tiempo de observación
+                </span>
+                <span class="time-big" id="time-big">
+                    t = 0
+                </span>
+            </div>               
+                
                 <div class="slider-box">
                     <input
                         type="range"
@@ -480,7 +510,10 @@
 
             <div class="control-group">
                 <label>Animación</label>
-                <button id="b-play">
+                <button 
+                    id="b-play"
+                    title="Activa la animación temporal automática"
+                >
                    ▶ PLAY
                 </button>
             </div>
@@ -493,6 +526,7 @@
                     align-items:center;
                     ">
                     <button id="b-step-mode"
+                    title="Muestra visualmente las etapas matemáticas de la convolución"
                     style="
                         flex:1;
                         background:#ffffff;
