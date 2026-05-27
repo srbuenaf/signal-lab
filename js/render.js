@@ -276,6 +276,11 @@ function renderStepMode(){
             'path-overlap-fill'
         );
 
+    const overlapBox =
+    document.getElementById(
+        'active-overlap'
+    );
+
     /* =========================
        RESET
     ========================= */
@@ -295,6 +300,55 @@ const integWindow =
     /* =========================
        MODO NORMAL
     ========================= */
+
+let overlapStart = 999;
+let overlapEnd = -999;
+
+    for(let x=0;x<=500;x++){
+
+    const vF = signalBuffer[x];
+    const vH = kernelBuffer[x];
+
+    if(
+        Math.abs(vF) > 1 &&
+        Math.abs(vH) > 1
+    ){
+        overlapStart =
+            Math.min(overlapStart,x);
+
+        overlapEnd =
+            Math.max(overlapEnd,x);
+    }
+    }
+
+    if(overlapEnd > overlapStart){
+
+        overlapBox.style.display = 'block';
+
+        overlapBox.setAttribute(
+            'x',
+            overlapStart
+         );
+
+        overlapBox.setAttribute(
+            'y',
+            -55
+        );
+
+        overlapBox.setAttribute(
+            'width',
+            overlapEnd - overlapStart
+        );
+
+        overlapBox.setAttribute(
+            'height',
+            110
+        );
+
+    }else{
+
+        overlapBox.style.display = 'none';
+    }
 
     if(!stepMode){
 
@@ -329,6 +383,7 @@ const integWindow =
 
             title.textContent =
                 "Paso 1: Kernel original h(τ)";
+            title.style.borderLeftColor = "#009688";
 
             base.style.opacity = 1;
             document.getElementById('didactic-title')
@@ -346,7 +401,8 @@ const integWindow =
         title.textContent =
            state.isConvolution
               ? "Paso 2: Inversión temporal h(-τ)"
-              : "Paso 2: Correlación: no se invierte";;
+              : "Paso 2: Correlación: no se invierte";
+              title.style.borderLeftColor = "#2980b9";
 
             base.style.opacity = 0.15;
 
@@ -365,6 +421,7 @@ const integWindow =
 
             title.textContent =
                 "Paso 3: Desplazamiento h(t-τ)";
+                title.style.borderLeftColor = "#2980b9";
 
             flip.style.opacity = 0.15;
 
@@ -384,6 +441,7 @@ const integWindow =
 
             title.textContent =
                 "Paso 4: Producto punto a punto";
+                title.style.borderLeftColor = "#9c27b0";
 
             moved.style.opacity = 0.25;
 
@@ -415,6 +473,7 @@ const integWindow =
                 );
             title.textContent =
                 "Paso 5: Integración → salida";
+                title.style.borderLeftColor = "#e74c3c";
 
             moved.style.opacity = 0.25;
 

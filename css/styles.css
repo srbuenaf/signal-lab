@@ -55,6 +55,10 @@ body {
     gap: 20px;
 }
 
+/* =========================================================
+   HEADER
+========================================================= */
+
 .header{
 
     display:flex;
@@ -153,6 +157,10 @@ body {
     font-size: 20px;
     font-weight: 700;
 }
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
 .dashboard {
 
@@ -317,16 +325,59 @@ svg {
 
 .math-label-fixed {
 
-    padding-left: 40px;
+    position:absolute;
 
-    padding-top: 20px;
+    top:18px;
+    left:20px;
 
-    font-size: 1.05em;
+    padding:10px 16px;
 
-    color: var(--dark);
+    background:rgba(255,255,255,0.92);
 
-    font-weight: 600;
+    border:1px solid rgba(0,0,0,0.06);
+
+    border-left:4px solid var(--accent);
+
+    border-radius:12px;
+
+    font-size:14px;
+    font-weight:600;
+
+    color:var(--dark);
+
+    backdrop-filter:blur(6px);
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,0.06);
+
+    transition:
+        all .25s ease;
+
+    z-index:10;
+
+    max-width:320px;
 }
+
+.math-label-fixed:empty{
+
+    opacity:0;
+
+    transform:translateY(-8px);
+
+    pointer-events:none;
+}
+
+#active-overlap{
+
+    transition:
+        all .2s ease;
+
+    rx:10px;
+}
+
+/* =========================================================
+   CONTROLES
+========================================================= */
 
 .controls{
     display:grid;
@@ -373,6 +424,18 @@ svg {
     border:1px solid #ececf2;
 
     border-radius:12px;
+
+    transition:
+    transform .2s ease,
+    box-shadow .25s ease;
+}
+
+.control-section:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,0.05);
 }
 
 .control-section-content{
@@ -399,6 +462,7 @@ svg {
     padding-bottom:6px;
 
     border-bottom:1px solid #e6e6ee;
+    
 }
 button,
 select {
@@ -422,7 +486,21 @@ select {
 
     border: 1px solid var(--gray);
 
-    transition: all .2s;
+        transition:
+        background .25s ease,
+        color .25s ease,
+        border-color .25s ease,
+        transform .15s ease,
+        box-shadow .25s ease;
+}
+
+button:hover,
+select:hover{
+
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,0.08);
 }
 
 input[type=range] {
@@ -518,3 +596,66 @@ input[type=range] {
 
     color:#333;
 }
+
+/* =========================================================
+   LEYENDA
+========================================================= */
+
+.signal-legend{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    gap:22px;
+
+    flex-wrap:wrap;
+
+    padding:10px 14px;
+
+    background:#fafafa;
+
+    border:1px solid #ececf2;
+
+    border-radius:14px;
+
+    margin-bottom:8px;
+}
+
+.legend-item{
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    font-size:12px;
+    font-weight:600;
+
+    color:var(--dark);
+}
+
+.legend-color{
+
+    width:14px;
+    height:14px;
+
+    border-radius:50%;
+}
+
+.signal-f{
+    background:var(--primary);
+}
+
+.signal-h{
+    background:var(--inverse);
+}
+
+.signal-p{
+    background:var(--mix);
+}
+
+.signal-r{
+    background:var(--result);
+}
+
