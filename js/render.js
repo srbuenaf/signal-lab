@@ -62,12 +62,17 @@ function renderResponse(scanData){
 
     scan.forEach((p,i)=>{
 
-      if(
-        stepMode &&
-        p.t > state.t
-        ){
-        return;
+    if(stepMode){
+
+        let visibleT = state.t;
+
+        if(currentStep < 5){
+            visibleT -= 1;
     }
+
+    if(p.t > visibleT)
+        return;
+}
 
         const py =
             p.val * mSVG;
@@ -324,6 +329,12 @@ function renderStepMode(){
             'focus-res'
     );
 
+
+const ghost =
+    document.getElementById(
+        'integral-ghost'
+    );
+
     /* =========================
        RESET
     ========================= */
@@ -339,6 +350,9 @@ const integWindow =
     prod.style.opacity = 0;
     overlap.style.opacity = 0;
     overlap.style.display = 'none';
+
+
+ghost.style.opacity = 0;
 
     /* =========================
        MODO NORMAL
@@ -422,7 +436,15 @@ let overlapEnd = -999;
             'result-point-focus'
         );
 
+        focusH.style.opacity = 0;
+
+        focusProd.style.opacity = 0;
+
+        focusRes.style.opacity = 0;
    
+        resCurve.style.opacity = '';
+
+        resFill.style.opacity = '';
 
         return;
     }
@@ -460,6 +482,7 @@ let overlapEnd = -999;
         /* PASO 1 */
         case 0:
 
+            resPoint.style.opacity = 0;
             focusH.style.opacity = 1;   
 
             title.textContent =
@@ -607,6 +630,21 @@ let overlapEnd = -999;
 
             integWindow.style.opacity = 1;
 
+
+ghost.style.transition = 'none';
+
+ghost.style.left = '470px';
+
+ghost.style.top = '630px';
+
+ghost.style.transform =
+    'translate(-50%,-50%) scale(1)';
+
+ghost.style.opacity = .38;
+
+void ghost.offsetWidth;
+
+
              break;
 
         /* PASO 6 */
@@ -659,6 +697,38 @@ let overlapEnd = -999;
             integWindow.classList.add(
                 'window-fade'
             );
+            previousT = state.t;
+
+
+
+    if(!ghostAnimating){
+
+        ghostAnimating = true;
+
+        ghost.style.transition = `
+        left 1.25s cubic-bezier(.18,.84,.22,1),
+        top 1.25s cubic-bezier(.18,.84,.22,1),
+        transform 1.25s cubic-bezier(.18,.84,.22,1),
+        opacity 1.4s ease
+        `;
+
+        ghost.style.left =
+            `${185 + state.sliderT}px`;
+
+        ghost.style.top =
+            '760px';
+
+        ghost.style.transform =
+            'translate(-50%,-50%) scale(.12)';
+
+        setTimeout(()=>{
+
+            ghost.style.opacity = 0;
+
+            ghostAnimating = false;
+
+        },1150);
+    }
 
         break;
     }

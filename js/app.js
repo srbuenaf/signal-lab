@@ -338,11 +338,14 @@ function toggleStepMode(){
 
     currentStep = 0;
 
-    document.getElementById('b-step-mode')
-        .textContent =
-            stepMode
-                ? "MODO NORMAL"
-                : "PASO A PASO";
+    previousT = state.t - 1;
+
+    document.getElementById(
+        'b-step-mode'
+    ).textContent =
+        stepMode
+            ? "MODO NORMAL"
+            : "PASO A PASO";
 
     update(true);
 }

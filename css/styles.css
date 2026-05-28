@@ -876,3 +876,36 @@ input[type=range] {
     width:490px;
     height:150px;
 }
+
+
+#integral-ghost{
+
+    position:absolute;
+
+    width:84px;
+    height:84px;
+
+    border-radius:50%;
+
+    background:
+        rgba(52,152,219,.16);
+
+    border:
+        2px solid rgba(52,152,219,.18);
+
+    pointer-events:none;
+
+    opacity:0;
+
+    transform:
+        translate(-50%,-50%)
+        scale(1);
+
+    transition:
+        left .75s cubic-bezier(.2,.8,.2,1),
+        top .75s cubic-bezier(.2,.8,.2,1),
+        transform .75s cubic-bezier(.2,.8,.2,1),
+        opacity .75s ease;
+
+    z-index:999;
+}
