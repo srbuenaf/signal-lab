@@ -1,911 +1,544 @@
+/* ==========================================================================
+   1. VARIABLES, CONFIGURACIÓN BASE Y RESET
+   ========================================================================== */
 :root {
-
     --primary: #57068c;
     --light: #f4eefc;
-
     --inverse: #009688;
     --inverse-light: #e0f2f1;
-
     --white: #ffffff;
     --dark: #232323;
-
     --gray: #e5e5ea;
     --gray-dark: #8e8e93;
-
     --mix: #9c27b0;
-    --mix-light: rgba(156,39,176,0.15);
-
+    --mix-light: rgba(156, 39, 176, 0.15);
     --result: #e74c3c;
-    --result-light: rgba(231,76,60,0.15);
-
+    --result-light: rgba(231, 76, 60, 0.15);
     --accent: #2980b9;
+}
 
+* {
+    box-sizing: border-box;
 }
 
 body {
-
     font-family: 'Montserrat', sans-serif;
     background: #f5f5f7;
-
     margin: 0;
     padding: 20px 10px;
-
     display: flex;
     justify-content: center;
 }
 
 .container {
-
     width: 100%;
     max-width: 1250px;
-
-    background: white;
-
+    background: var(--white);
     border-radius: 16px;
-
     padding: 25px;
-
-    box-sizing: border-box;
-
     box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-
     display: flex;
     flex-direction: column;
-
     gap: 20px;
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header{
-
-    display:flex;
-    flex-direction:column;
-
-    gap:8px;
-
-    margin-bottom:10px;
+/* ==========================================================================
+   2. HEADER Y COMPONENTES DE TEXTO
+   ========================================================================== */
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
 }
 
-.header-top{
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    gap:14px;
+.header-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
 }
 
-.header h1{
-
-    margin:0;
-
-    color:var(--primary);
-
-    font-size:30px;
-    font-weight:700;
-
-    letter-spacing:-0.02em;
-}
-
-.time-header{
-
-    display:flex;
-    flex-direction:column;
-
-    gap:6px;
-
-    margin-bottom:4px;
-}
-
-.time-title{
-
-    font-size:11px;
-    font-weight:700;
-
-    color:var(--gray-dark);
-
-    text-transform:uppercase;
-
-    letter-spacing:.05em;
-}
-
-.time-big{
-
-    font-size:28px;
-    font-weight:700;
-
-    color:var(--result);
-
-    letter-spacing:-0.03em;
-}
-
-.version-badge{
-
-    background:var(--primary);
-    color:white;
-
-    padding:4px 10px;
-
-    border-radius:999px;
-
-    font-size:11px;
-    font-weight:700;
-}
-
-.header-subtitle{
-
-    margin:0;
-
-    text-align:center;
-
-    color:var(--gray-dark);
-
-    font-size:14px;
-
-    font-weight:500;
+.header h1 {
+    margin: 0;
+    color: var(--primary);
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .header h2 {
-
     margin: 0;
-
     color: var(--primary);
-
     font-size: 20px;
     font-weight: 700;
 }
 
-/* =========================================================
-   DASHBOARD
-========================================================= */
+.header-subtitle {
+    margin: 0;
+    text-align: center;
+    color: var(--gray-dark);
+    font-size: 14px;
+    font-weight: 500;
+}
 
+.time-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.time-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-dark);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.time-big {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--result);
+    letter-spacing: -0.03em;
+}
+
+.version-badge {
+    background: var(--primary);
+    color: var(--white);
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   3. ESTRUCTURA DEL DASHBOARD (LAYOUT)
+   ========================================================================== */
 .dashboard {
-
     display: grid;
     grid-template-columns: 1fr 1fr;
-
     gap: 20px;
 }
 
-@media(max-width:900px){
-
-    .dashboard{
-
-        grid-template-columns:1fr;
-    }
-}
-
-.stage-right {
-
-    background: #fafafa;
-
-    border: 1px solid #eee;
-
-    border-radius: 12px;
-
-    position:relative;
-}
-
 .stage-left-modular {
-
     padding: 15px 20px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     height: 740px;
-
-    position:relative;
-
+    position: relative;
 }
 
 .stage-right {
-
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
     position: relative;
     overflow: hidden;
-
     height: 740px;
 }
 
 .channel-block {
-
     display: flex;
     flex-direction: column;
-
     gap: 4px;
 }
 
 .channel-title {
-
     font-size: 0.82rem;
     font-weight: 600;
-
     color: var(--dark);
-
     height: 28px;
-
     display: flex;
     align-items: center;
-
     padding-left: 45px;
 }
 
+/* ==========================================================================
+   4. ELEMENTOS GRÁFICOS (SVG, GRÁFICOS Y LABELS)
+   ========================================================================== */
 .mini-svg-container {
-
     width: 100%;
     height: 110px;
 }
 
 svg {
-
     width: 100%;
     height: 100%;
-
     display: block;
-
     overflow: visible;
 }
 
 .axis {
-
     stroke: var(--dark);
     stroke-width: 1.5;
 }
 
 .sig-f {
-
     stroke: var(--primary);
     fill: var(--light);
-
     stroke-width: 2.5;
 }
 
 .sig-h {
-
     stroke: var(--inverse);
     fill: var(--inverse-light);
-
     stroke-width: 2.5;
 }
 
 .sig-prod {
-
     stroke: var(--mix);
     fill: var(--mix-light);
-
     stroke-width: 1.5;
 }
 
 .sig-res {
-
     stroke: var(--result);
-
     fill: none;
-
     stroke-width: 3;
-
     stroke-linejoin: round;
 }
 
 .sig-res-fill {
-
     fill: var(--result-light);
 }
 
 .max-line {
-
     stroke: var(--gray-dark);
-
     stroke-dasharray: 4,4;
-
-    stroke-width: 1.2;
-}
-
-.integ-window {
-
-    fill: rgba(41,128,185,0.08);
-
-    stroke: var(--accent);
-
-    stroke-dasharray: 3,3;
-
     stroke-width: 1.2;
 }
 
 .max-text {
-
-    font-family: 'Montserrat';
-
     font-size: 11px;
-
     font-weight: 700;
-
     fill: var(--dark);
 }
 
+.integ-window {
+    fill: rgba(41, 128, 185, 0.08);
+    stroke: var(--accent);
+    stroke-dasharray: 3,3;
+    stroke-width: 1.2;
+}
+
 .math-label-fixed {
-
- 
-    top:18px;
-    left:20px;
-
-    padding:10px 16px;
-
-    background:rgba(255,255,255,0.92);
-
-    border:1px solid rgba(0,0,0,0.06);
-
-    border-left:4px solid var(--accent);
-
-    border-radius:12px;
-
-    font-size:14px;
-    font-weight:600;
-
-    color:var(--dark);
-
-    backdrop-filter:blur(6px);
-
-    box-shadow:
-        0 6px 20px rgba(0,0,0,0.06);
-
-    transition:
-        all .25s ease;
-
-    pointer-events:none;
-
-    max-width:320px;
+    position: absolute;
+    top: 18px;
+    left: 20px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--dark);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transition: all .25s ease;
+    pointer-events: none;
+    max-width: 320px;
 }
 
-.math-label-fixed:empty{
-
-    opacity:0;
-
-    transform:translateY(-8px);
-
-    pointer-events:none;
+.math-label-fixed:empty {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
 }
 
-#active-overlap{
-
-    transition:
-        all .2s ease;
-
-    rx:10px;
+#active-overlap {
+    transition: all .2s ease;
+    rx: 10px;
 }
 
 /* =========================================================
-   CONTROLES
-========================================================= */
-
-.controls{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:14px;
-
-    background:#fff;
-    padding:20px;
-    border-radius:12px;
-    border:1px solid #eee;
-
-    align-items:end;
+   5. COMPONENTES DE INTERFAZ (CONTROLES, BOTONES, INPUTS)
+   ========================================================= */
+.controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    align-items: end;
 }
 
-.control-group{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-
-    font-size:11px;
-    font-weight:700;
-    color:var(--gray-dark);
-
-    transition:opacity .2s ease;
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-dark);
+    transition: opacity .2s ease;
 }
 
-.control-group.disabled{
-    opacity:.3;
-    pointer-events:none;
+.control-group.disabled {
+    opacity: .3;
+    pointer-events: none;
 }
 
-
-.control-section{
-
-    display:flex;
-    flex-direction:column;
-
-    gap:14px;
-
-    padding:16px;
-
-    background:#fafafa;
-
-    border:1px solid #ececf2;
-
-    border-radius:12px;
-
-    transition:
-    transform .2s ease,
-    box-shadow .25s ease;
+.control-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    background: #fafafa;
+    border: 1px solid #ececf2;
+    border-radius: 12px;
+    transition: transform .2s ease, box-shadow .25s ease;
 }
 
-.control-section:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 6px 18px rgba(0,0,0,0.05);
+.control-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
 }
 
-.control-section-content{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(auto-fit,minmax(220px,1fr));
-
-    gap:14px;
+.control-section-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
 }
 
-.control-section-title{
-
-    font-size:12px;
-    font-weight:700;
-
-    letter-spacing:.04em;
-
-    text-transform:uppercase;
-
-    color:var(--primary);
-
-    padding-bottom:6px;
-
-    border-bottom:1px solid #e6e6ee;
-    
+.control-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--primary);
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e6e6ee;
 }
-button,
-select {
 
+button, select {
     border: none;
-
     padding: 8px 10px;
-
     border-radius: 8px;
-
-    font-family: 'Montserrat';
-
+    font-family: 'Montserrat', sans-serif;
     font-size: 11px;
     font-weight: 600;
-
     cursor: pointer;
-
     height: 38px;
-
     background: #f2f2f7;
-
     border: 1px solid var(--gray);
-
-        transition:
-        background .25s ease,
-        color .25s ease,
-        border-color .25s ease,
-        transform .15s ease,
-        box-shadow .25s ease;
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .15s ease, box-shadow .25s ease;
 }
 
-button:hover,
-select:hover{
-
-    transform:translateY(-1px);
-
-    box-shadow:
-        0 4px 10px rgba(0,0,0,0.08);
+button:hover, select:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 input[type=range] {
-
     width: 100%;
     height: 6px;
-
     background: #ddd;
-
     border-radius: 5px;
-
     outline: none;
 }
 
 .slider-box {
-
     display: flex;
     align-items: center;
-
     gap: 10px;
-
     background: #f8f8fa;
-
     padding: 5px 12px;
-
     border-radius: 8px;
-
     border: 1px solid #eee;
-
     height: 38px;
 }
 
 .val-display {
-
     color: var(--primary);
-
     min-width: 35px;
-
     text-align: center;
-
     font-size: 12px;
 }
 
-#b-mode{
-
+#b-mode {
     background: var(--dark);
-    color: white;
+    color: var(--white);
 }
 
-#b-type{
-
+#b-type {
     background: var(--accent);
-    color:white;
+    color: var(--white);
 }
 
-.didactic-panel{
-
-    position:absolute;
-
-    left:20px;
-    right:20px;
-    bottom:20px;
-
-    background:rgba(255,255,255,0.96);
-
-    border:1px solid #e5e5ea;
-
-    border-radius:12px;
-
-    padding:16px 18px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,0.05);
-
+/* =========================================================
+   6. PANELES EDUCATIVOS Y DICTÁCTICOS
+   ========================================================= */
+.didactic-panel {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: rgba(255,255,255,0.96);
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     backdrop-filter: blur(6px);
-
-    z-index:10;
-
+    z-index: 10;
 }
 
-.didactic-title{
-
-    font-size:14px;
-    font-weight:700;
-
-    color:var(--primary);
-
-    margin-bottom:8px;
+.didactic-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
 }
 
-.didactic-text{
-
-    font-size:13px;
-    line-height:1.5;
-
-    color:#333;
+.didactic-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #333;
 }
 
 /* =========================================================
-   LEYENDA
-========================================================= */
-
-.signal-legend{
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    gap:22px;
-
-    flex-wrap:wrap;
-
-    padding:10px 14px;
-
-    background:#fafafa;
-
-    border:1px solid #ececf2;
-
-    border-radius:14px;
-
-    margin-bottom:8px;
+   7. LEYENDAS DE SEÑALES
+   ========================================================= */
+.signal-legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    background: #fafafa;
+    border: 1px solid #ececf2;
+    border-radius: 14px;
+    margin-bottom: 8px;
 }
 
-.legend-item{
-
-    display:flex;
-    align-items:center;
-
-    gap:8px;
-
-    font-size:12px;
-    font-weight:600;
-
-    color:var(--dark);
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dark);
 }
 
-.legend-color{
-
-    width:14px;
-    height:14px;
-
-    border-radius:50%;
+.legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
 }
 
-.signal-f{
-    background:var(--primary);
+.signal-f { background: var(--primary); }
+.signal-h { background: var(--inverse); }
+.signal-p { background: var(--mix); }
+.signal-r { background: var(--result); }
+
+/* =========================================================
+   8. EFECTOS, ANIMACIONES Y HOVER OVERLAYS
+   ========================================================= */
+.shift-display {
+    position: absolute;
+    top: 82px;
+    left: 20px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.88);
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.05);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    transition: all .2s ease;
+    z-index: 10;
 }
 
-.signal-h{
-    background:var(--inverse);
+.result-focus {
+    opacity: 0.18;
+    transition: opacity .25s ease;
 }
 
-.signal-p{
-    background:var(--mix);
+.result-point-focus {
+    filter: drop-shadow(0 0 4px rgba(0,255,120,0.45));
+    animation: softPulse 1.8s infinite;
 }
 
-.signal-r{
-    background:var(--result);
+@keyframes softPulse {
+    0% { opacity: 1; }
+    50% { opacity: .55; }
+    100% { opacity: 1; }
+}
+
+.overlap-fade {
+    opacity: 0 !important;
+    transition: opacity .45s ease;
+}
+
+.window-fade {
+    opacity: 0;
+    transition: opacity .45s ease;
 }
 
 /* =========================================================
-   OVERLAYS CONTEXTUALES
-========================================================= */
-.shift-display{
-
-    position:absolute;
-
-    top:82px;
-    left:20px;
-
-    padding:8px 14px;
-
-    background:rgba(255,255,255,0.88);
-
-    border-radius:10px;
-
-    border:1px solid rgba(0,0,0,0.05);
-
-    font-size:13px;
-    font-weight:600;
-
-    color:var(--accent);
-
-    backdrop-filter:blur(4px);
-
-    box-shadow:
-        0 4px 14px rgba(0,0,0,0.05);
-
-    transition:
-        all .2s ease;
-
-    z-index:10;
-}
-
-/* =========================================================
-   RESULT FOCUS
-========================================================= */
-
-/* =========================================================
-   RESULT FOCUS
-========================================================= */
-
-.result-focus{
-
-    opacity:0.18;
-
-    transition:opacity .25s ease;
-}
-
-.result-point-focus{
-
-    filter:
-        drop-shadow(
-            0 0 4px rgba(0,255,120,0.45)
-        );
-
-    animation:
-        softPulse 1.8s infinite;
-}
-
-@keyframes softPulse{
-
-    0%{
-        opacity:1;
-    }
-
-    50%{
-        opacity:.55;
-    }
-
-    100%{
-        opacity:1;
-    }
-}
-
-/* =========================================================
-   OVERLAP FADE
-========================================================= */
-
-.overlap-fade{
-
-    opacity:0 !important;
-
-    transition:
-        opacity .45s ease;
-}
-
-.window-fade{
-
-    opacity:0;
-
-    transition:
-        opacity .45s ease;/* =========================================================
-   STEP HIGHLIGHTS
-========================================================= */
-
-.focus-box{
-
-    position:absolute;
-
-    border:1px solid rgba(124,58,237,.35);
-
-    border-radius:14px;
-
-    background:
-       rgba(124,58,237,.025);
-
-    box-shadow:
-        0 0 12px
-        rgba(124,58,237,.10);
-
-    opacity:0;
-
-    transition:
-        opacity .35s ease;
-
-    pointer-events:none;
+   9. EFECTOS FOCUS (PASO A PASO / HIGHLIGHTS)
+   ========================================================= */
+.focus-box {
+    position: absolute;
+    border: 2px solid #7c3aed;
+    border-radius: 14px;
+    background: rgba(124,58,237,.05);
+    box-shadow: 0 0 18px rgba(124,58,237,.18);
+    opacity: 0;
+    transition: opacity .35s ease;
+    pointer-events: none;
 }
 
 /* h(t−τ) */
-
-#focus-h{
-
-    left:20px;
-    top:120px;
-
-    width:360px;
-    height:120px;
+#focus-h {
+    left: 185px;
+    top: 340px;
+    width: 490px;
+    height: 140px;
 }
 
 /* producto */
-
-#focus-prod{
-
-    left:20px;
-    top:330px;
-
-    width:360px;
-    height:120px;
+#focus-prod {
+    left: 185px;
+    top: 540px;
+    width: 490px;
+    height: 150px;
 }
 
 /* convolución */
-
-#focus-res{
-
-    left:20px;
-    top:470px;
-
-    width:360px;
-    height:120px;
-}
+#focus-res {
+    left: 185px;
+    top: 740px;
+    width: 490px;
+    height: 150px;
 }
 
+#integral-ghost {
+    position: absolute;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: rgba(52,152,219,.16);
+    border: 2px solid rgba(52,152,219,.18);
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(1);
+    transition: left .75s cubic-bezier(.2,.8,.2,1), top .75s cubic-bezier(.2,.8,.2,1), transform .75s cubic-bezier(.2,.8,.2,1), opacity .75s ease;
+    z-index: 999;
+}
 
 /* =========================================================
-   STEP HIGHLIGHTS
-========================================================= */
-
-.focus-box{
-
-    position:absolute;
-
-    border:2px solid #7c3aed;
-
-    border-radius:14px;
-
-    background:
-        rgba(124,58,237,.05);
-
-    box-shadow:
-        0 0 18px
-        rgba(124,58,237,.18);
-
-    opacity:0;
-
-    transition:
-        opacity .35s ease;
-
-    pointer-events:none;
-}
-
-/* h(t−τ) */
-
-#focus-h{
-
-    left:185px;
-    top:340px;
-
-    width:490px;
-    height:140px;
-}
-
-/* producto */
-
-#focus-prod{
-
-    left:185px;
-    top:540px;
-
-    width:490px;
-    height:150px;
-}
-
-/* convolución */
-
-#focus-res{
-
-    left:185px;
-    top:740px;
-
-    width:490px;
-    height:150px;
-}
-
-
-#integral-ghost{
-
-    position:absolute;
-
-    width:84px;
-    height:84px;
-
-    border-radius:50%;
-
-    background:
-        rgba(52,152,219,.16);
-
-    border:
-        2px solid rgba(52,152,219,.18);
-
-    pointer-events:none;
-
-    opacity:0;
-
-    transform:
-        translate(-50%,-50%)
-        scale(1);
-
-    transition:
-        left .75s cubic-bezier(.2,.8,.2,1),
-        top .75s cubic-bezier(.2,.8,.2,1),
-        transform .75s cubic-bezier(.2,.8,.2,1),
-        opacity .75s ease;
-
-    z-index:999;
+   10. MEDIA QUERIES (RESPONSIVE)
+   ========================================================= */
+@media(max-width: 900px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
 }
