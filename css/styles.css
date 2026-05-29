@@ -482,56 +482,102 @@ input[type=range] {
     transition: opacity .45s ease;
 }
 
-/* =========================================================
+/* 1. Señal de entrada f(τ) - Morado nítido de fondo */
+.filter-overlay-f {
+    stroke: rgba(103, 58, 183, 0.85) !important;  /* Morado con cuerpo */
+    fill: rgba(103, 58, 183, 0.03) !important;   /* Relleno casi invisible */
+    stroke-width: 2px !important;
+}
+
+/* 2. Filtro h - ¡El verde suave con transparencia! */
+.filter-overlay-h {
+    stroke: rgba(0, 150, 136, 0.8) !important;    /* Contorno verde azulado */
+    fill: rgba(0, 150, 136, 0.22) !important;    /* Relleno traslúcido suave */
+    stroke-width: 2.5px !important;
+    pointer-events: none;
+}
+
+/* 3. La curva de resultado y(t) - Roja al frente */
+.overlay-res-thick {
+    stroke: rgba(231, 76, 60, 1) !important;     /* Rojo sólido y brillante */
+    stroke-width: 3.5px !important;              /* Más gruesa para que domine */
+    fill: none !important;
+}
+
+/* ==========================================================================
    9. EFECTOS FOCUS (PASO A PASO / HIGHLIGHTS)
-   ========================================================= */
+   ========================================================================== */
+
 .focus-box {
     position: absolute;
-    border: 2px solid #7c3aed;
-    border-radius: 14px;
-    background: rgba(124,58,237,.05);
-    box-shadow: 0 0 18px rgba(124,58,237,.18);
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    
+    border: 2.5px solid #7c3aed;                  /* Borde malva nítido */
+    border-radius: 12px;                          /* Esquinas suavizadas */
+    background: rgba(124, 58, 237, 0.07);         /* Envoltura malva translúcida */
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);/* Brillo de resalte */
+    
     opacity: 0;
-    transition: opacity .35s ease;
-    pointer-events: none;
+    transform: scale(0.99);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;                         
+    z-index: 10;
 }
 
-/* h(t−τ) */
-#focus-h {
-    left: 185px;
-    top: 340px;
-    width: 490px;
-    height: 140px;
+.focus-box.active {
+    opacity: 1;
+    transform: scale(1);
 }
 
-/* producto */
-#focus-prod {
-    left: 185px;
-    top: 540px;
-    width: 490px;
-    height: 150px;
-}
+/* Gráficas 2 y 3: Se adaptan de forma automática al contenedor 
+#focus-h { }
+#focus-prod { }*/
 
-/* convolución */
+/* CORRECCIÓN PASO 6: Acotamos el foco de la gráfica inferior para que no se 
+   desborde hacia arriba con el bloque de la fórmula MathJax */
 #focus-res {
-    left: 185px;
-    top: 740px;
-    width: 490px;
-    height: 150px;
+    top: auto;          /* Rompe el anclaje superior automático */
+    bottom: -4px;       /* Se pega a la base de la tarjeta */
+    height: 155px;      /* Forzamos la altura exacta de la gráfica de salida */
 }
 
+/* --- EL FANTASMA DE LA INTEGRAL (REDUCCIÓN Y DESPLAZAMIENTO RECTILÍNEO) --- */
 #integral-ghost {
     position: absolute;
-    width: 84px;
-    height: 84px;
-    border-radius: 50%;
-    background: rgba(52,152,219,.16);
-    border: 2px solid rgba(52,152,219,.18);
+    background: rgba(156, 39, 176, 0.18);        /* Exactamente el mismo tono original de la integral */
+    border: 1.5px dashed rgba(156, 39, 176, 0.4); /* Mismo borde de corte de la ventana */
+    border-radius: 0px;                           /* Mantiene su forma rectangular recta */
     pointer-events: none;
     opacity: 0;
-    transform: translate(-50%,-50%) scale(1);
-    transition: left .75s cubic-bezier(.2,.8,.2,1), top .75s cubic-bezier(.2,.8,.2,1), transform .75s cubic-bezier(.2,.8,.2,1), opacity .75s ease;
-    z-index: 999;
+    z-index: 9999;
+    
+    /* TRANSICIÓN PURA: Atenuación geométrica y posicional constante sin variaciones de brillo */
+    transition: 
+        left 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        top 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        width 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        height 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        opacity 0.6s ease-in;
+}
+
+
+/* --- VENTANA DE INTEGRACIÓN DINÁMICA --- */
+.integ-window {
+    fill: rgba(156, 39, 176, 0.18);       /* Tono violeta translúcido didáctico */
+    stroke: rgba(156, 39, 176, 0.4);      /* Borde de corte de la integral */
+    stroke-width: 1.5px;
+    stroke-dasharray: 4 2;
+    /* Esta transición se encarga de suavizar el barrido automático por código */
+    transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+}
+
+/* Efecto opcional para cuando se desvanece al cambiar de paso */
+.window-fade {
+    opacity: 0 !important;
+    transition: opacity 0.5s ease;
 }
 
 /* =========================================================
