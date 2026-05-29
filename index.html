@@ -25,11 +25,14 @@
         <h2 class="header-subtitle">Laboratorio interactivo de convolución y correlación</h2>
     </header>
 
-    <div class="dashboard">
+<div class="dashboard">
         <div class="stage-left-modular">
 
             <div class="channel-block">
-                <div id="latex-f" class="channel-title"></div>
+                <div class="channel-header-row">
+                    <div id="latex-f" class="channel-title"></div>
+                    <div id="lbl-step-f" class="step-title-label"></div>
+                </div>
                 <div class="mini-svg-container">
                     <svg viewBox="0 0 600 110">
                         <g transform="translate(45,55)">
@@ -42,7 +45,10 @@
             </div>
 
             <div class="channel-block" style="position: relative;">
-                <div id="latex-h" class="channel-title"></div>
+                <div class="channel-header-row">
+                    <div id="latex-h" class="channel-title"></div>
+                    <div id="lbl-step-h" class="step-title-label"></div>
+                </div>
                 <div class="mini-svg-container">
                     <svg viewBox="0 0 600 110">
                         <g transform="translate(45,55)">
@@ -59,7 +65,10 @@
             </div>
 
             <div class="channel-block" style="position: relative;">
-                <div id="latex-prod" class="channel-title"></div>
+                <div class="channel-header-row">
+                    <div id="latex-prod" class="channel-title"></div>
+                    <div id="lbl-step-prod" class="step-title-label"></div>
+                </div>
                 <div class="mini-svg-container">
                     <svg viewBox="0 0 600 110">
                         <g transform="translate(45,55)">
@@ -76,7 +85,10 @@
             </div>
 
             <div class="channel-block">
-                <div id="latex-res" class="channel-title-res"></div>
+                <div class="channel-header-row">
+                    <div id="latex-res" class="channel-title-res"></div>
+                    <div id="lbl-step-res" class="step-title-label"></div>
+                </div>
                 <div class="mini-svg-container">
                     <svg viewBox="0 0 600 110">
                         <g transform="translate(45,65)">
@@ -93,10 +105,10 @@
                 </div>
                 <div id="focus-res" class="focus-box"></div>
             </div>
-
         </div>
 
-        <div class="stage-right">
+        <div class="stage-right" id="panel-right-container">
+            
             <div id="latex-overlay-title" class="math-label-fixed"></div>
             <div id="shift-display" class="shift-display">Desplazamiento: t = 0</div>    
 
@@ -118,11 +130,12 @@
 
             <div id="didactic-panel" class="didactic-panel">
                 <div id="didactic-title" class="didactic-title">Introducción</div>
-                <div id="didactic-text" class="didactic-text">Selecciona el modo paso a paso para comenzar.</div>
+                <div class="didactic-scroll-area">
+                    <div id="didactic-text" class="didactic-text">Selecciona el modo paso a paso para comenzar.</div>
+                </div>
             </div>
         </div>
     </div>
-
     <div class="signal-legend">
         <div class="legend-item">
             <span class="legend-color signal-f"></span> Entrada f(τ)

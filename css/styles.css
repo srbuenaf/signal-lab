@@ -588,3 +588,137 @@ input[type=range] {
         grid-template-columns: 1fr;
     }
 }
+
+/* ==========================================================================
+   MAPEO DE IDENTIDAD CROMÁTICA PARA EL FILTRO (GRÁFICA 2) - DEFINITIVO
+   ========================================================================== */
+
+/* 1. El filtro original (Verde suave translúcido con cerco oscuro) */
+#path-h-base {
+    fill: rgba(46, 204, 113, 0.25) !important;   /* Fondo verde suave */
+    stroke: #27ae60 !important;                  /* Cerco oscuro definido */
+    stroke-width: 2px !important;
+    transition: opacity 0.3s ease;
+}
+
+/* 2. Automatización del borde discontinuo en el Paso 2 */
+/* Cuando el elemento h-base está atenuado (opacidad menor a 0.5), el CSS le aplica los guiones automáticamente */
+.dashboard .stage-left-modular .channel-block:nth-child(2) svg path#path-h-base {
+    stroke-dasharray: 5 4;
+}
+
+/* 3. El filtro invertido (Mismo tono verde corporativo) */
+#path-h-flip {
+    fill: rgba(46, 204, 113, 0.25) !important;
+    stroke: #27ae60 !important;
+    stroke-width: 2px !important;
+}
+
+/* 4. El filtro móvil que se desplaza en el Paso 3 */
+#path-h {
+    fill: rgba(46, 204, 113, 0.25) !important;
+    stroke: #27ae60 !important;
+    stroke-width: 2px !important;
+}
+
+
+/* ==========================================================================
+   REESTRUCTURACIÓN DE PASOS Y EXPLICACIONES EXPANDIDAS
+   ========================================================================== */
+
+/* Alineación horizontal para títulos de canales izquierdos */
+.channel-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-right: 10px;
+}
+
+.channel-header-row .channel-title {
+    padding-left: 45px; /* Respeta tu padding original */
+}
+
+/* Las nuevas etiquetas de título en el panel izquierdo */
+.step-title-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.step-title-label.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* ==========================================================================
+   COMPORTAMIENTO DEL PANEL DERECHO DURANTE EL MODO PASO A PASO
+   ========================================================================== */
+
+/* Cuando esta clase esté activa en el contenedor derecho, ocultamos el SVG e indicadores flotantes */
+.stage-right.step-mode-active #canvas-right,
+.stage-right.step-mode-active .math-label-fixed,
+.stage-right.step-mode-active .shift-display {
+    display: none !important;
+}
+
+/* Modificación del contenedor didáctico para que ocupe TODO el panel derecho */
+.stage-right.step-mode-active .didactic-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: none;
+    backdrop-filter: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 20;
+}
+
+/* Títulos más grandes y académicos en el panel expandido */
+.stage-right.step-mode-active .didactic-title {
+    font-size: 20px;
+    border-bottom: 2px solid var(--gray);
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+/* Caja con Scroll para albergar textos teóricos densos sin desbordar */
+.didactic-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.stage-right.step-mode-active .didactic-text {
+    font-size: 14px;
+    line-height: 1.65;
+    color: #444;
+}
+
+/* Estilo para listas o párrafos destacados dentro de la nueva explicación */
+.didactic-text p {
+    margin: 0 0 14px 0;
+}
+.didactic-text ul {
+    margin: 0 0 14px 0;
+    padding-left: 20px;
+}
+.didactic-text li {
+    margin-bottom: 6px;
+}
