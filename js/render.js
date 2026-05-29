@@ -62,31 +62,22 @@ function renderResponse(scanData){
 
     scan.forEach((p,i)=>{
 
-    if(stepMode){
+        if(stepMode){
+            let visibleT = state.t;
+            if(currentStep < 5){
+                visibleT -= 1;
+            }
+            if(p.t > visibleT)
+                return;
+        }
 
-        let visibleT = state.t;
-
-        if(currentStep < 5){
-            visibleT -= 1;
-    }
-
-    if(p.t > visibleT)
-        return;
-}
-
-        const py =
-            p.val * mSVG;
-
-        const poy =
-            p.val * mOverlay;
+        const py = p.val * mSVG;
+        const poy = p.val * mOverlay;
 
         if(i===0){
-
             dRes = `M${p.x} ${-py}`;
             dOver = `M${p.x} ${-poy}`;
-
         }else{
-
             dRes += ` L${p.x} ${-py}`;
             dOver += ` L${p.x} ${-poy}`;
         }
@@ -153,10 +144,7 @@ function renderResponse(scanData){
 function renderGuides(){
 
     for(let i=1;i<=4;i++){
-
-        const g =
-            document.getElementById(`guide-${i}`);
-
+        const g = document.getElementById(`guide-${i}`);
         g.setAttribute('x1',state.sliderT);
         g.setAttribute('x2',state.sliderT);
     }
@@ -167,29 +155,17 @@ function renderLabels(forceMath){
     if(!forceMath)
         return;
 
-    const sSelect =
-        document.getElementById('sf');
+    const sSelect = document.getElementById('sf');
+    const hSelect = document.getElementById('sh');
 
-    const hSelect =
-        document.getElementById('sh');
-
-    const sName =
-        sSelect.options[
-            sSelect.selectedIndex
-        ].text;
-
-    const hName =
-        hSelect.options[
-            hSelect.selectedIndex
-        ].text;
+    const sName = sSelect.options[sSelect.selectedIndex].text;
+    const hName = hSelect.options[hSelect.selectedIndex].text;
 
     document.getElementById('latex-f')
-        .textContent =
-            `Gráfica 1: Entrada f(τ) — [${sName}]`;
+        .textContent = `Gráfica 1: Entrada f(τ) — [${sName}]`;
 
     document.getElementById('latex-h')
-        .textContent =
-            `Gráfica 2: Sistema h(${state.isConvolution ? 't-τ':'τ-t'}) — [${hName}]`;
+        .textContent = `Gráfica 2: Sistema h(${state.isConvolution ? 't-τ':'τ-t'}) — [${hName}]`;
 
     document.getElementById('latex-prod')
         .textContent =
@@ -200,14 +176,11 @@ function renderLabels(forceMath){
     let resTitle = "";
 
     if(state.isPeriodicMode){
-
         resTitle =
             state.isConvolution
                 ? `\\( \\tilde{y}(t)=\\frac{1}{T}\\int_{t-T}^{t}\\tilde{f}(\\tau)\\tilde{h}(t-\\tau)d\\tau \\)`
                 : `\\( \\tilde{R}(t)=\\frac{1}{T}\\int_{t-T}^{t}\\tilde{f}(\\tau)\\tilde{h}(\\tau-t)d\\tau \\)`;
-
     }else{
-
         resTitle =
             state.isConvolution
                 ? `\\( (f*h)(t)=\\int_{-250}^{250}f(\\tau)h(t-\\tau)d\\tau \\)`
@@ -223,125 +196,38 @@ function renderLabels(forceMath){
 
 function renderButtons(){
 
-    const bMode =
-        document.getElementById('b-mode');
+    const bMode = document.getElementById('b-mode');
+    const bCausal = document.getElementById('b-causal');
+    const bType = document.getElementById('b-type');
+    const bScale = document.getElementById('b-scale');
 
-    const bCausal =
-        document.getElementById('b-causal');
-
-    const bType =
-        document.getElementById('b-type');
-
-    const bScale =
-        document.getElementById('b-scale');
-
-    bMode.textContent =
-        state.isConvolution
-            ? "CONVOLUCIÓN"
-            : "CORRELACIÓN";
-
-    bCausal.textContent =
-        state.isCausal
-            ? "CAUSAL REAL"
-            : "NO CAUSAL";
-
-    bType.textContent =
-        state.isPeriodicMode
-            ? "CONVOLUCIÓN CIRCULAR"
-            : "LINEAL GLOBAL";
-
-    bScale.textContent =
-        state.isAutoScale
-            ? "Escala: AUTO"
-            : "Escala: FIJA";
+    bMode.textContent = state.isConvolution ? "CONVOLUCIÓN" : "CORRELACIÓN";
+    bCausal.textContent = state.isCausal ? "CAUSAL REAL" : "NO CAUSAL";
+    bType.textContent = state.isPeriodicMode ? "CONVOLUCIÓN CIRCULAR" : "LINEAL GLOBAL";
+    bScale.textContent = state.isAutoScale ? "Escala: AUTO" : "Escala: FIJA";
 }
 
 function renderStepMode(){
 
+    const title = document.getElementById('latex-overlay-title');
+    const base = document.getElementById('path-h-base');
+    const flip = document.getElementById('path-h-flip');
+    const moved = document.getElementById('path-h');
+    const prod = document.getElementById('path-prod');
+    const overlap = document.getElementById('path-overlap-fill');
+    const resCurve = document.getElementById('path-res');
+    const resFill = document.getElementById('path-res-fill');
+    const resPoint = document.getElementById('p4');
+    const overlapBox = document.getElementById('active-overlap');
 
-    const title =
-        document.getElementById(
-            'latex-overlay-title'
-        );
-
-    const base =
-        document.getElementById(
-            'path-h-base'
-        );
-
-    const flip =
-        document.getElementById(
-            'path-h-flip'
-        );
-
-    const moved =
-        document.getElementById(
-            'path-h'
-        );
-
-    const prod =
-        document.getElementById(
-            'path-prod'
-        );
-
-    const overlap =
-        document.getElementById(
-            'path-overlap-fill'
-        );
-
-    const resCurve =
-        document.getElementById(
-            'path-res'
-        );
-
-    const resFill =
-        document.getElementById(
-            'path-res-fill'
-        );
-
-    const resPoint =
-        document.getElementById(
-            'p4'
-        );
-
-    const overlapBox =
-    document.getElementById(
-        'active-overlap'
-    );
-
-    const floatingLabel =
-        document.getElementById(
-            'latex-overlay-title'
-    );
-
-    const focusH =
-        document.getElementById(
-            'focus-h'
-    );
-
-    const focusProd =
-        document.getElementById(
-            'focus-prod'
-    );
-
-    const focusRes =
-        document.getElementById(
-            'focus-res'
-    );
-
-
-const ghost =
-    document.getElementById(
-        'integral-ghost'
-    );
+    const focusH = document.getElementById('focus-h');
+    const focusProd = document.getElementById('focus-prod');
+    const focusRes = document.getElementById('focus-res');
 
     /* =========================
        RESET
     ========================= */
-const integWindow =
-    document.getElementById(
-        'view-integ-window'
-    );
+    const integWindow = document.getElementById('view-integ-window');
 
     integWindow.style.display = 'none';
     base.style.opacity = 0;
@@ -351,386 +237,184 @@ const integWindow =
     overlap.style.opacity = 0;
     overlap.style.display = 'none';
 
-
-ghost.style.opacity = 0;
-
     /* =========================
        MODO NORMAL
     ========================= */
-
-let overlapStart = 999;
-let overlapEnd = -999;
+    let overlapStart = 999;
+    let overlapEnd = -999;
 
     for(let x=0;x<=500;x++){
+        const vF = signalBuffer[x];
+        const vH = kernelBuffer[x];
 
-    const vF = signalBuffer[x];
-    const vH = kernelBuffer[x];
-
-    if(
-        Math.abs(vF) > 1 &&
-        Math.abs(vH) > 1
-    ){
-        overlapStart =
-            Math.min(overlapStart,x);
-
-        overlapEnd =
-            Math.max(overlapEnd,x);
-    }
+        if(Math.abs(vF) > 1 && Math.abs(vH) > 1){
+            overlapStart = Math.min(overlapStart,x);
+            overlapEnd = Math.max(overlapEnd,x);
+        }
     }
 
     if(overlapEnd > overlapStart){
-
         overlapBox.style.display = 'block';
-
-        overlapBox.setAttribute(
-            'x',
-            overlapStart
-         );
-
-        overlapBox.setAttribute(
-            'y',
-            -55
-        );
-
-        overlapBox.setAttribute(
-            'width',
-            overlapEnd - overlapStart
-        );
-
-        overlapBox.setAttribute(
-            'height',
-            110
-        );
-
+        overlapBox.setAttribute('x', overlapStart);
+        overlapBox.setAttribute('y', -55);
+        overlapBox.setAttribute('width', overlapEnd - overlapStart);
+        overlapBox.setAttribute('height', 110);
     }else{
-
         overlapBox.style.display = 'none';
     }
 
     if(!stepMode){
-
         title.textContent = "";
-
         base.style.opacity = 0.18;
-
         flip.style.opacity = 0.45;
-
         moved.style.opacity = 1;
-
         prod.style.opacity = 1;
-
         overlap.style.opacity = 1;
 
-        document.getElementById('didactic-panel')
-            .style.display = 'none';
+        document.getElementById('didactic-panel').style.display = 'none';
 
-        resCurve.classList.remove(
-            'result-focus'
-        );
-
-        resFill.classList.remove(
-            'result-focus'
-        );
-
-        resPoint.classList.remove(
-            'result-point-focus'
-        );
+        resCurve.classList.remove('result-focus');
+        resFill.classList.remove('result-focus');
+        resPoint.classList.remove('result-point-focus');
 
         focusH.style.opacity = 0;
-
         focusProd.style.opacity = 0;
-
         focusRes.style.opacity = 0;
    
         resCurve.style.opacity = '';
-
         resFill.style.opacity = '';
-
         return;
     }
 
     /* =========================
        PASOS
     ========================= */
-    document.getElementById('didactic-panel')
-        .style.display = 'block';
+    document.getElementById('didactic-panel').style.display = 'block';
         
-    
-    resCurve.classList.add(
-        'result-focus'
-    );
-
-    resFill.classList.add(
-        'result-focus'
-    );
-
+    resCurve.classList.add('result-focus');
+    resFill.classList.add('result-focus');
     resPoint.style.opacity = 0;
-
-    resPoint.classList.remove(
-        'result-point-focus'
-    );
+    resPoint.classList.remove('result-point-focus');
     
-
     focusH.style.opacity = 0;
-
     focusProd.style.opacity = 0;
-
     focusRes.style.opacity = 0;    
 
-        switch(currentStep){
+    switch(currentStep){
 
         /* PASO 1 */
         case 0:
-
             resPoint.style.opacity = 0;
             focusH.style.opacity = 1;   
 
-            title.textContent =
-                "Paso 1: Kernel original h(τ)";
+            title.textContent = "Paso 1: Kernel original h(τ)";
             title.style.borderLeftColor = "#009688";
 
             base.style.opacity = 1;
-            document.getElementById('didactic-title')
-                .textContent =
-                    "Paso 1 · Sistema original";
-
-            document.getElementById('didactic-text')
-                .textContent =
-                    "Observamos la respuesta impulsional original del sistema h(τ). Esta función describe cómo responde físicamente el sistema ante una excitación.";
+            document.getElementById('didactic-title').textContent = "Paso 1 · Sistema original";
+            document.getElementById('didactic-text').textContent = "Observamos la respuesta impulsional original del sistema h(τ). Esta función describe cómo responde físicamente el sistema ante una excitación.";
             break;
 
         /* PASO 2 */
         case 1:
-
             focusH.style.opacity = 1;   
-            title.textContent =
-                state.isConvolution
-              ? "Paso 2: Inversión temporal h(-τ)"
-              : "Paso 2: Correlación: no se invierte";
-              title.style.borderLeftColor = "#2980b9";
+            title.textContent = state.isConvolution ? "Paso 2: Inversión temporal h(-τ)" : "Paso 2: Correlación: no se invierte";
+            title.style.borderLeftColor = "#2980b9";
 
             base.style.opacity = 0.15;
-
             flip.style.opacity = 1;
-            document.getElementById('didactic-title')
-                .textContent =
-                    "Paso 2 · Inversión temporal";
 
-            document.getElementById('didactic-text')
-               .textContent =
-                   "En convolución invertimos temporalmente el sistema. El operador h(t-τ) implica una reflexión respecto al eje temporal.";
+            document.getElementById('didactic-title').textContent = "Paso 2 · Inversión temporal";
+            document.getElementById('didactic-text').textContent = "En convolución invertimos temporalmente el sistema. El operador h(t-τ) implica una reflexión respecto al eje temporal.";
             break;
 
         /* PASO 3 */
         case 2:
-
             focusH.style.opacity = 1;   
-            title.textContent =
-                "Paso 3: Desplazamiento h(t-τ)";
-                title.style.borderLeftColor = "#2980b9";
+            title.textContent = "Paso 3: Desplazamiento h(t-τ)";
+            title.style.borderLeftColor = "#2980b9";
 
             flip.style.opacity = 0.15;
-
             moved.style.opacity = 1;
             overlap.style.display = 'block';
-            document.getElementById('didactic-title')
-                .textContent =
-                     "Paso 3 · Desplazamiento temporal";
 
-            document.getElementById('didactic-text')
-                .textContent =
-                    "Ahora desplazamos el sistema a lo largo del tiempo. El parámetro t controla cuánto se mueve el kernel respecto a la señal.";
+            document.getElementById('didactic-title').textContent = "Paso 3 · Desplazamiento temporal";
+            document.getElementById('didactic-text').textContent = "Ahora desplazamos el sistema a lo largo del tiempo. El parámetro t controla cuánto se mueve el kernel respecto a la señal.";
             break;
 
         /* PASO 4 */
         case 3:
-
             focusProd.style.opacity = 1;
-            title.textContent =
-                "Paso 4: Producto punto a punto";
-                title.style.borderLeftColor = "#9c27b0";
+            title.textContent = "Paso 4: Producto punto a punto";
+            title.style.borderLeftColor = "#9c27b0";
 
             moved.style.opacity = 0.25;
-
             prod.style.opacity = 1;
-
             overlap.style.opacity = 1;
             overlap.style.display = 'block';
-            document.getElementById('didactic-title')
-                .textContent =
-                    "Paso 4 · Producto local";
 
-            document.getElementById('didactic-text')
-                .textContent =
-                    "Multiplicamos punto a punto ambas señales. El solape positivo aumenta la salida; el solape negativo puede cancelarla.";
+            document.getElementById('didactic-title').textContent = "Paso 4 · Producto local";
+            document.getElementById('didactic-text').textContent = "Multiplicamos punto a punto ambas señales. El solape positivo aumenta la salida; el solape negativo puede cancelarla.";
             break;
 
         /* PASO 5 */
         case 4:
-
             focusProd.style.opacity = 1;
             integWindow.style.display = 'block';
 
-            integWindow.setAttribute(
-               'x',
-                0
-                    );
-
-            integWindow.setAttribute(
-              'width',
-                 500
-                );
-            title.textContent =
-                "Paso 5: La integral se está calculando ...";
-                title.style.borderLeftColor = "#e74c3c";
+            integWindow.setAttribute('x', 0);
+            integWindow.setAttribute('width', 500);
+            
+            title.textContent = "Paso 5: La integral se está calculando ...";
+            title.style.borderLeftColor = "#e74c3c";
 
             moved.style.opacity = 0.25;
-
-            prod.style.transition =
-                'opacity .45s ease';
-
+            prod.style.transition = 'opacity .45s ease';
             prod.style.opacity = 1;
-
             overlap.style.opacity = 1;
-            document.getElementById('didactic-title')
-                .textContent =
-                    "Paso 5 · Integración";
 
-            document.getElementById('didactic-text')
-                .textContent =
-                    "La integral acumula toda la interacción entre señal y sistema. El valor obtenido genera un único punto de la salida y(t).";
+            document.getElementById('didactic-title').textContent = "Paso 5 · Integración";
+            document.getElementById('didactic-text').textContent = "La integral acumula toda la interacción entre señal y sistema. El valor obtenido genera un único punto de la salida y(t).";
             
-            resCurve.classList.add(
-                'result-focus'
-            );
-
-            resFill.classList.add(
-                'result-focus'
-            );
-
-            overlap.style.transition =
-                'opacity .45s ease';
-
-
-            overlap.classList.remove(
-                'overlap-fade'
-            );
+            resCurve.classList.add('result-focus');
+            resFill.classList.add('result-focus');
             
+            overlap.style.transition = 'opacity .45s ease';
+            overlap.classList.remove('overlap-fade');
             overlap.style.opacity = 1;
             
             resPoint.style.opacity = 0;
+            resPoint.classList.remove('result-point-focus');
             
-            resPoint.classList.remove(
-                'result-point-focus'
-            );
-            
-            integWindow.classList.remove(
-                'window-fade'
-            );
-
+            integWindow.classList.remove('window-fade');
             integWindow.style.opacity = 1;
-
-
-ghost.style.transition = 'none';
-
-ghost.style.left = '470px';
-
-ghost.style.top = '630px';
-
-ghost.style.transform =
-    'translate(-50%,-50%) scale(1)';
-
-ghost.style.opacity = .38;
-
-void ghost.offsetWidth;
-
-
-             break;
+            break;
 
         /* PASO 6 */
         case 5:
-
             focusRes.style.opacity = 1;
             integWindow.style.display = 'block';
-
             integWindow.style.opacity = 0;
 
             moved.style.opacity = 0.12;
-
-            prod.style.transition =
-            'opacity .45s ease';
-
+            prod.style.transition = 'opacity .45s ease';
             prod.style.opacity = 0.08;
 
-            overlap.style.transition =
-                'opacity .45s ease';
+            overlap.style.transition = 'opacity .45s ease';
+            overlap.classList.add('overlap-fade');
 
-            overlap.classList.add(
-                'overlap-fade'
-            );
+            title.textContent = "Paso 6: Asignación a y(t)";
+            title.style.borderLeftColor = "#2ecc71";
 
-            title.textContent =
-                "Paso 6: Asignación a y(t)";
+            document.getElementById('didactic-title').textContent = "Paso 6 · Construcción de la salida";
+            document.getElementById('didactic-text').textContent = "El valor de la integral se convierte en un punto de la convolución y(t).";
 
-            title.style.borderLeftColor =
-                "#2ecc71";
+            resPoint.style.transition = 'opacity .45s ease';
+            resPoint.style.opacity = 1;
+            resPoint.classList.add('result-point-focus');
 
-            document.getElementById(
-                'didactic-title'
-            ).textContent =
-                "Paso 6 · Construcción de la salida";
-
-            document.getElementById(
-                'didactic-text'
-            ).textContent =
-                "El valor de la integral se convierte en un punto de la convolución y(t).";
-
-            resPoint.style.transition =
-                'opacity .45s ease';
-            
-                resPoint.style.opacity = 1;
-
-            resPoint.classList.add(
-                'result-point-focus'
-            );
-
-            integWindow.classList.add(
-                'window-fade'
-            );
+            integWindow.classList.add('window-fade');
             previousT = state.t;
-
-
-
-    if(!ghostAnimating){
-
-        ghostAnimating = true;
-
-        ghost.style.transition = `
-        left 1.25s cubic-bezier(.18,.84,.22,1),
-        top 1.25s cubic-bezier(.18,.84,.22,1),
-        transform 1.25s cubic-bezier(.18,.84,.22,1),
-        opacity 1.4s ease
-        `;
-
-        ghost.style.left =
-            `${185 + state.sliderT}px`;
-
-        ghost.style.top =
-            '760px';
-
-        ghost.style.transform =
-            'translate(-50%,-50%) scale(.12)';
-
-        setTimeout(()=>{
-
-            ghost.style.opacity = 0;
-
-            ghostAnimating = false;
-
-        },1150);
-    }
-
-        break;
+            break;
     }
 }
-
